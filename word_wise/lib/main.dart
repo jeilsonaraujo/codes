@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:word_wise/core/inject.dart';
 
-void main() {
+void main() async {
+  await setupInjection();
+
   runApp(const MyApp());
 }
 

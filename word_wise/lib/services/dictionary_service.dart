@@ -7,7 +7,7 @@ class DictionaryService {
   DictionaryService({required this.dio});
 
   Future<WordDetailDto> getDefinition({required String word}) async {
-    final result = await dio.get('https://api.dictionaryapi.dev/api/v2/entries/en/$word');
+    final result = await dio.get('/en/$word');
     final data = WordDetailDto.fromJson(result.data[0]);
 
     return data;
