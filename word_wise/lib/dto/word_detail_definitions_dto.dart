@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'word_detail_definitions.g.dart';
+part 'word_detail_definitions_dto.g.dart';
 
 @JsonSerializable()
 class WordDetailDefinitionsDto {

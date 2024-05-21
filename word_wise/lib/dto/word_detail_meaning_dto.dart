@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:word_wise/dto/word_detail_definitions.dart';
+import 'package:word_wise/dto/word_detail_definitions_dto.dart';
 
 part 'word_detail_meaning_dto.g.dart';
 
