@@ -30,7 +30,7 @@ Future<void> setupInjection() async {
     WWLogger.e(message: 'Fail to load environment keys, file: "$fileName" not found!', exception: exception);
   }
 
-  await Supabase.initialize(url: supabaseUrl, anonKey: supabaseAnonKey);
+  await Supabase.initialize(url: supabaseUrl, anonKey: supabaseAnonKey, debug: false);
 
   inject.registerLazySingleton<SupabaseClient>(() => Supabase.instance.client);
 
