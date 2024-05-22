@@ -6,20 +6,21 @@ import 'package:word_wise/core/logger.dart';
 import 'package:word_wise/dto/word_detail_dto.dart';
 
 class CacheService {
-  static get cacheBoxName => 'dictionaryApiCache';
-  static get _cacheBoxNameDate => 'dictionaryApiCacheDate';
+  static String get cacheBoxName => 'dictionaryApiCache';
+  static String get _cacheBoxNameDate => 'dictionaryApiCacheDate';
+  static int get timeToLiveInMinutes => 20;
   Box hiveBox;
 
   CacheService({required this.hiveBox});
 
-  Future<WordDetailDto?> getWordDetailCache({required String path}) async {
+  Future<WordDetailDto?> getWordDefinitionFromCache({required String path}) async {
     final data = hiveBox.get(path);
     if (data != null) WWLogger.i(message: 'Word: "$path" was found on cache');
 
     return data == null ? null : WordDetailDto.fromJson(jsonDecode(data));
   }
 
-  Future<void> setWordDetailCache({required String path, required WordDetailDto wordDetail}) async {
+  Future<void> saveWordDefinitionOnCache({required String path, required WordDetailDto wordDetail}) async {
     WWLogger.i(message: 'Word: "${wordDetail.word}" stored on cache');
 
     hiveBox.put(path, jsonEncode(wordDetail));
@@ -38,7 +39,7 @@ class CacheService {
       final difference = dateTimeNow.difference(dateTimeCache);
       WWLogger.i(message: 'Cache lifetime $difference');
 
-      return difference.inMinutes < 5;
+      return difference.inMinutes < timeToLiveInMinutes;
     }
   }
 
