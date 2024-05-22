@@ -13,6 +13,11 @@ class WordRepository {
     throw UnimplementedError();
   }
 
+  Future<List<String>> unFavoriteWord({required String word}) {
+    // TODO: implement unFavoriteWord
+    throw UnimplementedError();
+  }
+
   Future<WordDetailDto> getWordDetail({required String word}) async {
     WordDetailDto? wordDetail = await cacheService.getWordDetailCache(path: word);
     if (wordDetail == null) {
@@ -29,11 +34,6 @@ class WordRepository {
 
   Future<List<String>> getWordsHistory() {
     // TODO: implement getWordsHistory
-    throw UnimplementedError();
-  }
-
-  Future<List<String>> unFavoriteWord({required String word}) {
-    // TODO: implement unFavoriteWord
     throw UnimplementedError();
   }
 }

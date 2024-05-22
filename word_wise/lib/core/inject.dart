@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:word_wise/core/logger.dart';
 import 'package:word_wise/repositories/word_repository.dart';
 import 'package:word_wise/services/api_service.dart';
 import 'package:word_wise/services/cache_service.dart';
@@ -7,6 +8,8 @@ import 'package:word_wise/services/cache_service.dart';
 GetIt inject = GetIt.instance;
 
 Future<void> setupInjection() async {
+  WWLogger.i(message: 'Reset injection');
+
   await inject.reset();
 
   final cache = await CacheService.setupHive();
@@ -23,4 +26,6 @@ Future<void> setupInjection() async {
           headers: {'Content-Type': 'application/json'},
         ),
       ));
+
+  WWLogger.i(message: 'Setup injection finished');
 }
