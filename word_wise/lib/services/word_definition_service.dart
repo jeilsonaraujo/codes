@@ -2,10 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:word_wise/core/logger.dart';
 import 'package:word_wise/dto/word_detail_dto.dart';
 
-class DictionaryService {
+class WordDefinitionService {
   final Dio dio;
 
-  DictionaryService({required this.dio});
+  WordDefinitionService({required this.dio});
 
   Future<WordDetailDto> getDefinitionFromApi({required String word}) async {
     WWLogger.i(message: 'Fetching word:"$word" from API');

@@ -5,7 +5,10 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:word_wise/core/logger.dart';
 import 'package:word_wise/repositories/word_repository.dart';
 import 'package:word_wise/services/cache_service.dart';
+import 'package:word_wise/services/favorite_service.dart';
+import 'package:word_wise/services/history_service.dart';
 import 'package:word_wise/services/word_definition_service.dart';
+import 'package:word_wise/services/word_service.dart';
 
 GetIt inject = GetIt.instance;
 
@@ -36,9 +39,18 @@ Future<void> setupInjection() async {
 
   inject.registerLazySingleton<CacheService>(() => CacheService(hiveBox: cache));
 
-  inject.registerLazySingleton<DictionaryService>(() => DictionaryService(dio: inject<Dio>()));
+  inject.registerLazySingleton<WordDefinitionService>(() => WordDefinitionService(dio: inject<Dio>()));
 
-  inject.registerLazySingleton<WordRepository>(() => WordRepository(apiService: inject<DictionaryService>(), cacheService: inject<CacheService>()));
+  inject.registerLazySingleton<HistoryService>(() => HistoryService(supabaseClient: inject<SupabaseClient>()));
+
+  inject.registerLazySingleton<FavoriteService>(() => FavoriteService(supabaseClient: inject<SupabaseClient>()));
+
+  inject.registerLazySingleton<WordRepository>(() => WordRepository(
+        historicService: inject<HistoryService>(),
+        favoriteService: inject<FavoriteService>(),
+        wordService: inject<WordService>(),
+        wordDefinitionService: inject<WordDefinitionService>(),
+      ));
 
   inject.registerLazySingleton<Dio>(() => Dio(
         BaseOptions(

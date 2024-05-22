@@ -5,7 +5,7 @@ class WordService {
 
   WordService({required this.supabaseClient});
 
-  Future<List<String>> getWordsFromSupabase({required int itensFetched, int pageSize = 20}) async {
+  Future<List<String>> getWords({required int itensFetched, int pageSize = 20}) async {
     final paginationStart = itensFetched == 0 ? 0 : itensFetched + 1;
     final paginationEnd = itensFetched + pageSize;
     final data = await supabaseClient.from('words').select('word_name').range(paginationStart, paginationEnd);
