@@ -54,7 +54,7 @@ Future<void> setupInjection() async {
   inject.registerLazySingleton<FavoriteService>(() => FavoriteService(supabaseWrapper: inject<SupabaseWrapper>()));
 
   inject.registerLazySingleton<WordRepository>(() => WordRepository(
-        historicService: inject<HistoryService>(),
+        historyService: inject<HistoryService>(),
         favoriteService: inject<FavoriteService>(),
         wordService: inject<WordService>(),
         wordDefinitionService: inject<WordDefinitionService>(),

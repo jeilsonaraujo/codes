@@ -5,13 +5,13 @@ import 'package:word_wise/services/word_definition_service.dart';
 import 'package:word_wise/services/word_service.dart';
 
 class WordRepository {
-  final HistoryService historicService;
+  final HistoryService historyService;
   final FavoriteService favoriteService;
   final WordService wordService;
   final WordDefinitionService wordDefinitionService;
 
   WordRepository({
-    required this.historicService,
+    required this.historyService,
     required this.favoriteService,
     required this.wordService,
     required this.wordDefinitionService,
@@ -38,14 +38,14 @@ class WordRepository {
   }
 
   Future<List<String>> getHistory({required String userId}) async {
-    return await historicService.getHistory(userId: userId);
+    return await historyService.getHistory(userId: userId);
   }
 
   Future<void> registerHistoryVisit({required String word, required String userId}) async {
-    return await historicService.registerVisit(word: word, userId: userId);
+    return await historyService.registerVisit(word: word, userId: userId);
   }
 
   Future<void> clearHistory({required String userId}) async {
-    await historicService.clearHistory(userId: userId);
+    await historyService.clearHistory(userId: userId);
   }
 }

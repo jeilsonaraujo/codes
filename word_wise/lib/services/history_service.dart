@@ -6,17 +6,18 @@ class HistoryService {
   HistoryService({required this.supabaseWrapper});
 
   Future<List<String>> getHistory({required String userId}) async {
-    final data = await supabaseWrapper.get(table: 'historic', columns: '*', columnEQA: 'user_id', valueEQA: userId);
-    final result = data.map((e) => e['word'] as String? ?? '').toList();
+    final data = await supabaseWrapper.get(
+        table: SupabaseWrapper.historyTableName, columns: HistoryTableColumns.all.name, columnEQA: HistoryTableColumns.userId.name, valueEQA: userId);
+    final result = data.map((e) => e[HistoryTableColumns.wordName.name] as String? ?? '').toList();
 
     return result;
   }
 
   Future<void> registerVisit({required String word, required String userId}) async {
-    await supabaseWrapper.insert(table: 'historic', values: {'word': word, 'user_id': userId});
+    await supabaseWrapper.insert(table: SupabaseWrapper.historyTableName, values: {HistoryTableColumns.wordName.name: word, HistoryTableColumns.userId.name: userId});
   }
 
   Future<void> clearHistory({required String userId}) async {
-    await supabaseWrapper.remove(table: 'historic', match: {'user_id': userId});
+    await supabaseWrapper.remove(table: SupabaseWrapper.historyTableName, match: {HistoryTableColumns.userId.name: userId});
   }
 }

@@ -11,9 +11,9 @@ extension FavoritesTableColumnsExt on FavoritesTableColumns {
       ][index];
 }
 
-enum HistoricTableColumns { id, createdAt, userId, wordName, all }
+enum HistoryTableColumns { id, createdAt, userId, wordName, all }
 
-extension HistoricTableColumnsExt on HistoricTableColumns {
+extension HistoryTableColumnsExt on HistoryTableColumns {
   String get name => [
         'id',
         'created_at',
@@ -38,7 +38,7 @@ class SupabaseWrapper {
   final SupabaseClient supabaseClient;
 
   static String get favoritesTableName => 'favorites';
-  static String get historicTableName => 'historic';
+  static String get historyTableName => 'history';
   static String get wordsTableName => 'words';
 
   SupabaseWrapper({required this.supabaseClient});
