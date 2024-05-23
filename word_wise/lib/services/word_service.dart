@@ -10,13 +10,13 @@ class WordService {
     final paginationEnd = itensFetched + pageSize;
 
     final data = await supabaseWrapper.getPaginated(
-      table: 'words',
-      columns: 'word_name',
+      table: SupabaseWrapper.wordsTableName,
+      columns: WordsTableColumns.wordName.name,
       paginationStart: paginationStart,
       paginationEnd: paginationEnd,
     );
 
-    final result = data.map((e) => e['word_name'] as String? ?? '').toList();
+    final result = data.map((e) => e[WordsTableColumns.wordName.name] as String? ?? '').toList();
 
     return result;
   }

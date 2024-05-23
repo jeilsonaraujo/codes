@@ -11,12 +11,12 @@ class FavoriteService {
       columns: FavoritesTableColumns.all.name,
       columnEQA: FavoritesTableColumns.userId.name,
       valueEQA: userId,
-      columnEQB: FavoritesTableColumns.userId.name,
+      columnEQB: FavoritesTableColumns.wordName.name,
       valueEQB: word,
     );
     if (data.isEmpty) {
       await supabaseWrapper
-          .insert(table: SupabaseWrapper.favoritesTableName, values: {FavoritesTableColumns.userId.name: word, FavoritesTableColumns.userId.name: userId});
+          .insert(table: SupabaseWrapper.favoritesTableName, values: {FavoritesTableColumns.wordName.name: word, FavoritesTableColumns.userId.name: userId});
     }
   }
 
@@ -42,7 +42,7 @@ class FavoriteService {
       columnEQA: FavoritesTableColumns.userId.name,
       valueEQA: userId,
     );
-    final result = data.map((e) => e[FavoritesTableColumns.userId.name] as String? ?? '').toList();
+    final result = data.map((e) => e[FavoritesTableColumns.wordName.name] as String? ?? '').toList();
 
     return result;
   }
