@@ -1,27 +1,41 @@
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:word_wise/core/wrappers/supabase_wrapper.dart';
 
 class FavoriteService {
-  final SupabaseClient supabaseClient;
+  final SupabaseWrapper supabaseWrapper;
 
-  FavoriteService({required this.supabaseClient});
+  FavoriteService({required this.supabaseWrapper});
 
   Future<void> addFavorite({required String word, required String userId}) async {
-    final data = await supabaseClient.from('favorites').select('*').eq('user_id', userId).eq('word', word);
+    final data = await supabaseWrapper.get(
+      table: 'favorites',
+      columns: '*',
+      columnEQA: 'user_id',
+      valueEQA: userId,
+      columnEQB: 'word',
+      valueEQB: word,
+    );
     if (data.isEmpty) {
-      await supabaseClient.from('favorites').insert({'word': word, 'user_id': userId});
+      await supabaseWrapper.insert(table: 'favorites', values: {'word': word, 'user_id': userId});
     }
   }
 
   Future<void> removeFavorite({required String word, required String userId}) async {
-    final data = await supabaseClient.from('favorites').select('id').eq('user_id', userId).eq('word', word);
+    final data = await supabaseWrapper.get(
+      table: 'favorites',
+      columns: 'id',
+      columnEQA: 'user_id',
+      valueEQA: userId,
+      columnEQB: 'word',
+      valueEQB: word,
+    );
     if (data.isNotEmpty) {
       final id = data.first['id'];
-      await supabaseClient.from('favorites').delete().match({'id': id});
+      await supabaseWrapper.remove(table: 'favorites', match: {'id': id});
     }
   }
 
   Future<List<String>> getFavorites({required String userId}) async {
-    final data = await supabaseClient.from('favorites').select('word').eq('user_id', userId);
+    final data = await supabaseWrapper.get(table: 'favorites', columns: 'word', columnEQA: 'user_id', valueEQA: userId);
     final result = data.map((e) => e['word'] as String? ?? '').toList();
 
     return result;

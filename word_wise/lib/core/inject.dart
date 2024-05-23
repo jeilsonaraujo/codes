@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:word_wise/core/logger.dart';
+import 'package:word_wise/core/wrappers/supabase_wrapper.dart';
 import 'package:word_wise/repositories/word_repository.dart';
 import 'package:word_wise/services/cache_service.dart';
 import 'package:word_wise/services/favorite_service.dart';
@@ -37,13 +38,17 @@ Future<void> setupInjection() async {
 
   inject.registerLazySingleton<SupabaseClient>(() => Supabase.instance.client);
 
+  inject.registerLazySingleton<SupabaseWrapper>(() => SupabaseWrapper(supabaseClient: inject<SupabaseClient>()));
+
   inject.registerLazySingleton<CacheService>(() => CacheService(hiveBox: cache));
 
   inject.registerLazySingleton<WordDefinitionService>(() => WordDefinitionService(dio: inject<Dio>()));
 
-  inject.registerLazySingleton<HistoryService>(() => HistoryService(supabaseClient: inject<SupabaseClient>()));
+  inject.registerLazySingleton<WordService>(() => WordService(supabaseWrapper: inject<SupabaseWrapper>()));
 
-  inject.registerLazySingleton<FavoriteService>(() => FavoriteService(supabaseClient: inject<SupabaseClient>()));
+  inject.registerLazySingleton<HistoryService>(() => HistoryService(supabaseWrapper: inject<SupabaseWrapper>()));
+
+  inject.registerLazySingleton<FavoriteService>(() => FavoriteService(supabaseWrapper: inject<SupabaseWrapper>()));
 
   inject.registerLazySingleton<WordRepository>(() => WordRepository(
         historicService: inject<HistoryService>(),

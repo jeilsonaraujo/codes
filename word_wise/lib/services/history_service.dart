@@ -1,22 +1,22 @@
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:word_wise/core/wrappers/supabase_wrapper.dart';
 
 class HistoryService {
-  final SupabaseClient supabaseClient;
+  final SupabaseWrapper supabaseWrapper;
 
-  HistoryService({required this.supabaseClient});
+  HistoryService({required this.supabaseWrapper});
 
   Future<List<String>> getHistory({required String userId}) async {
-    final data = await supabaseClient.from('historic').select('*');
+    final data = await supabaseWrapper.get(table: 'historic', columns: '*', columnEQA: 'user_id', valueEQA: userId);
     final result = data.map((e) => e['word'] as String? ?? '').toList();
 
     return result;
   }
 
   Future<void> registerVisit({required String word, required String userId}) async {
-    await supabaseClient.from('historic').insert({'word': word, 'user_id': userId});
+    await supabaseWrapper.insert(table: 'historic', values: {'word': word, 'user_id': userId});
   }
 
   Future<void> clearHistory({required String userId}) async {
-    await supabaseClient.from('historic').delete().match({'user_id': userId});
+    await supabaseWrapper.remove(table: 'historic', match: {'user_id': userId});
   }
 }
