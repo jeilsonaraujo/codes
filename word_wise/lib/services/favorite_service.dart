@@ -7,36 +7,42 @@ class FavoriteService {
 
   Future<void> addFavorite({required String word, required String userId}) async {
     final data = await supabaseWrapper.get(
-      table: 'favorites',
-      columns: '*',
-      columnEQA: 'user_id',
+      table: SupabaseWrapper.favoritesTableName,
+      columns: FavoritesTableColumns.all.name,
+      columnEQA: FavoritesTableColumns.userId.name,
       valueEQA: userId,
-      columnEQB: 'word',
+      columnEQB: FavoritesTableColumns.userId.name,
       valueEQB: word,
     );
     if (data.isEmpty) {
-      await supabaseWrapper.insert(table: 'favorites', values: {'word': word, 'user_id': userId});
+      await supabaseWrapper
+          .insert(table: SupabaseWrapper.favoritesTableName, values: {FavoritesTableColumns.userId.name: word, FavoritesTableColumns.userId.name: userId});
     }
   }
 
   Future<void> removeFavorite({required String word, required String userId}) async {
     final data = await supabaseWrapper.get(
-      table: 'favorites',
-      columns: 'id',
-      columnEQA: 'user_id',
+      table: SupabaseWrapper.favoritesTableName,
+      columns: FavoritesTableColumns.id.name,
+      columnEQA: FavoritesTableColumns.userId.name,
       valueEQA: userId,
-      columnEQB: 'word',
+      columnEQB: FavoritesTableColumns.userId.name,
       valueEQB: word,
     );
     if (data.isNotEmpty) {
-      final id = data.first['id'];
-      await supabaseWrapper.remove(table: 'favorites', match: {'id': id});
+      final id = data.first[FavoritesTableColumns.id.name];
+      await supabaseWrapper.remove(table: SupabaseWrapper.favoritesTableName, match: {FavoritesTableColumns.id.name: id});
     }
   }
 
   Future<List<String>> getFavorites({required String userId}) async {
-    final data = await supabaseWrapper.get(table: 'favorites', columns: 'word', columnEQA: 'user_id', valueEQA: userId);
-    final result = data.map((e) => e['word'] as String? ?? '').toList();
+    final data = await supabaseWrapper.get(
+      table: SupabaseWrapper.favoritesTableName,
+      columns: FavoritesTableColumns.userId.name,
+      columnEQA: FavoritesTableColumns.userId.name,
+      valueEQA: userId,
+    );
+    final result = data.map((e) => e[FavoritesTableColumns.userId.name] as String? ?? '').toList();
 
     return result;
   }

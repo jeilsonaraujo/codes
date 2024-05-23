@@ -1,7 +1,45 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+enum FavoritesTableColumns { id, userId, wordName, all }
+
+extension FavoritesTableColumnsExt on FavoritesTableColumns {
+  String get name => [
+        'id',
+        'user_id',
+        'word_name',
+        '*',
+      ][index];
+}
+
+enum HistoricTableColumns { id, createdAt, userId, wordName, all }
+
+extension HistoricTableColumnsExt on HistoricTableColumns {
+  String get name => [
+        'id',
+        'created_at',
+        'user_id',
+        'word_name',
+        '*',
+      ][index];
+}
+
+enum WordsTableColumns { id, wordName, language, all }
+
+extension WordsTableColumnsExt on WordsTableColumns {
+  String get name => [
+        'id',
+        'word_name',
+        'language',
+        '*',
+      ][index];
+}
+
 class SupabaseWrapper {
   final SupabaseClient supabaseClient;
+
+  static String get favoritesTableName => 'favorites';
+  static String get historicTableName => 'historic';
+  static String get wordsTableName => 'words';
 
   SupabaseWrapper({required this.supabaseClient});
 
