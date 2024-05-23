@@ -1,21 +1,21 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'words_state.freezed.dart';
+part 'history_state.freezed.dart';
 
 @freezed
-class WordsState with _$WordsState {
-  const factory WordsState.loading() = _Loading;
+class HistoryState with _$HistoryState {
+  const factory HistoryState.loading() = _Loading;
 
-  const factory WordsState.error() = _Error;
+  const factory HistoryState.error() = _Error;
 
-  const factory WordsState.empty() = _Empty;
+  const factory HistoryState.empty() = _Empty;
 
-  const factory WordsState.paginating({required List<String> words}) = _Paginating;
+  const factory HistoryState.paginating({required List<String> words}) = _Paginating;
 
-  const factory WordsState.content({required List<String> words}) = _Content;
+  const factory HistoryState.content({required List<String> words}) = _Content;
 }
 
-extension WordsStateExt on WordsState {
+extension HistoryStateExt on HistoryState {
   bool get isContentOrPaginating => this is _Loading || this is _Paginating;
   bool get isLoading => this is _Loading;
   bool get isPaginating => this is _Paginating;

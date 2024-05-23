@@ -38,7 +38,7 @@ class FavoriteService {
   Future<List<String>> getFavorites({required String userId}) async {
     final data = await supabaseWrapper.get(
       table: SupabaseWrapper.favoritesTableName,
-      columns: FavoritesTableColumns.userId.name,
+      columns: FavoritesTableColumns.all.name,
       columnEQA: FavoritesTableColumns.userId.name,
       valueEQA: userId,
     );

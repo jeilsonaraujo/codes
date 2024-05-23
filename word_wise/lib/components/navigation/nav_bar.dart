@@ -14,16 +14,16 @@ class _WWNavBarState extends State<WWNavBar> {
     return Container(
       decoration: BoxDecoration(color: Colors.white, boxShadow: [
         BoxShadow(
-          color: Color.fromARGB(255, 254, 254, 254).withOpacity(0.5),
+          color: const Color(0xFFFEFEFE).withOpacity(0.5),
           spreadRadius: 2,
           blurRadius: 5,
-          offset: Offset(0, 5), // changes position of shadow
+          offset: const Offset(0, 5), // changes position of shadow
         ),
         BoxShadow(
-          color: Color.fromARGB(255, 52, 52, 52).withOpacity(0.5),
+          color: const Color(0xFF343434).withOpacity(0.5),
           spreadRadius: 0.05,
           blurRadius: 5,
-          offset: Offset(0, -7), // changes position of shadow
+          offset: const Offset(0, -7), // changes position of shadow
         ),
       ]),
       height: 80,

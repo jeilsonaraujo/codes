@@ -1,40 +1,39 @@
 import 'package:bloc/bloc.dart';
-import 'package:word_wise/app/features/words_page/words_state.dart';
+import 'package:word_wise/app/features/history_page/history_state.dart';
 import 'package:word_wise/core/logger.dart';
 import 'package:word_wise/repositories/word_repository.dart';
 
-class WordsCubit extends Cubit<WordsState> {
+class HistoryCubit extends Cubit<HistoryState> {
   final WordRepository repository;
-  WordsCubit({required this.repository}) : super(const WordsState.loading());
+  HistoryCubit({required this.repository}) : super(const HistoryState.loading());
   List<String> words = [];
 
   Future<void> load() async {
     try {
       words.clear();
-      emit(const WordsState.loading());
-      WWLogger.l(message: 'Loading words');
-      words = await repository.getWords(itensFetched: words.length);
-      WWLogger.l(message: 'Fetched ${words.length} words');
-      words.isEmpty ? emit(const WordsState.empty()) : emit(WordsState.content(words: words));
+      emit(const HistoryState.loading());
+      WWLogger.l(message: 'Loading history');
+      words = await repository.getHistory(userId: 'b57e89bf-279b-4edb-904d-b6da662a37a2');
+      WWLogger.l(message: 'Fetched ${words.length} history');
+      words.isEmpty ? emit(const HistoryState.empty()) : emit(HistoryState.content(words: words));
     } catch (exception, stackTrace) {
       WWLogger.e(message: exception.toString(), exception: exception, stackTrace: stackTrace);
-      emit(const WordsState.error());
+      emit(const HistoryState.error());
     }
   }
 
   Future<void> paginate() async {
-    if (state.isPaginating) return;
     try {
-      emit(WordsState.paginating(words: words));
+      emit(HistoryState.paginating(words: words));
       WWLogger.l(message: 'Paginating words');
       final paginatedWords = await repository.getWords(itensFetched: words.length);
       words.addAll(paginatedWords);
       WWLogger.l(message: 'Fetched +${paginatedWords.length} words');
       WWLogger.l(message: 'Total of words: ${words.length}');
-      emit(WordsState.content(words: words));
+      emit(HistoryState.content(words: words));
     } catch (exception, stackTrace) {
       WWLogger.e(message: exception.toString(), exception: exception, stackTrace: stackTrace);
-      emit(const WordsState.error());
+      emit(const HistoryState.error());
     }
   }
 }

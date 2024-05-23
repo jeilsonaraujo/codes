@@ -7,16 +7,16 @@ void main() async {
 
   await setupInjection();
 
-  runApp(const MyApp());
+  runApp(MyApp(router: inject<AppRouter>()));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  const MyApp({super.key, required this.router});
+  final AppRouter router;
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routerConfig: AppRoute.router,
+      routerConfig: router.routes,
       debugShowCheckedModeBanner: false,
     );
   }

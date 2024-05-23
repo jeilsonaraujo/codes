@@ -84,7 +84,7 @@ void main() {
     expect(result, ['word', 'list']);
     mock.verifyGet(
       table: SupabaseWrapper.favoritesTableName,
-      columns: FavoritesTableColumns.userId.name,
+      columns: FavoritesTableColumns.all.name,
       columnEQA: FavoritesTableColumns.userId.name,
       valueEQA: 'my_fake_user',
       calledTimes: 1,
