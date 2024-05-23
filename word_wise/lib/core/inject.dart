@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:word_wise/app/features/words_page/words_cubit.dart';
 import 'package:word_wise/core/logger.dart';
 import 'package:word_wise/core/wrappers/supabase_wrapper.dart';
 import 'package:word_wise/repositories/word_repository.dart';
@@ -35,6 +36,8 @@ Future<void> setupInjection() async {
   }
 
   await Supabase.initialize(url: supabaseUrl, anonKey: supabaseAnonKey, debug: false);
+
+  inject.registerLazySingleton<WordsCubit>(() => WordsCubit(repository: inject<WordRepository>()));
 
   inject.registerLazySingleton<SupabaseClient>(() => Supabase.instance.client);
 

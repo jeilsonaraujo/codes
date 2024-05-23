@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:word_wise/app/features/words_page/words_page.dart';
 import 'package:word_wise/core/inject.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await setupInjection();
 
   runApp(const MyApp());
@@ -18,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const SafeArea(child: WordsPage()),
     );
   }
 }

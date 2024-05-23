@@ -15,7 +15,13 @@ void main() {
     final result = await sut.getWords(itensFetched: 0);
 
     expect(result, []);
-    mock.verifyGetPaginated(table: SupabaseWrapper.wordsTableName, columns: WordsTableColumns.wordName.name, paginationStart: 0, paginationEnd: 20, calledTimes: 1);
+    mock.verifyGetPaginated(
+      table: SupabaseWrapper.wordsTableName,
+      columns: WordsTableColumns.wordName.name,
+      paginationStart: 0,
+      paginationEnd: WordService.paginationSize,
+      calledTimes: 1,
+    );
   });
 
   test('when [WordService] try getPaginated and get the data should return a list of words', () async {
@@ -29,6 +35,12 @@ void main() {
     final result = await sut.getWords(itensFetched: 0);
 
     expect(result, ['hello', 'help', 'confirm']);
-    mock.verifyGetPaginated(table: SupabaseWrapper.wordsTableName, columns: WordsTableColumns.wordName.name, paginationStart: 0, paginationEnd: 20, calledTimes: 1);
+    mock.verifyGetPaginated(
+      table: SupabaseWrapper.wordsTableName,
+      columns: WordsTableColumns.wordName.name,
+      paginationStart: 0,
+      paginationEnd: WordService.paginationSize,
+      calledTimes: 1,
+    );
   });
 }
