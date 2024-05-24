@@ -26,6 +26,10 @@ class WordRepository {
     await favoriteService.removeFavorite(word: word, userId: userId);
   }
 
+  Future<bool> isFavoriteWord({required String userId, required String word}) async {
+    return await favoriteService.isFavoriteWord(word: word, userId: userId);
+  }
+
   Future<List<String>> getFavoriteWords({required String userId}) async {
     return await favoriteService.getFavorites(userId: userId);
   }

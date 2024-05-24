@@ -20,24 +20,8 @@ class _FavoritesPageState extends State<FavoritesPage> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) => favoritesCubit.load());
-    scrollController.addListener(_scrollListener);
 
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    scrollController.dispose();
-    super.dispose();
-  }
-
-  final ScrollController scrollController = ScrollController();
-
-  _scrollListener() {
-    const spaceBeforeEndOfScroll = 250;
-    if (scrollController.offset >= scrollController.position.maxScrollExtent - spaceBeforeEndOfScroll && !scrollController.position.outOfRange) {
-      favoritesCubit.paginate();
-    }
   }
 
   @override

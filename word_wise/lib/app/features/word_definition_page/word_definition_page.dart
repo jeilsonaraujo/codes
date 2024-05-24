@@ -30,18 +30,26 @@ class _WordDefinitionPageState extends State<WordDefinitionPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: BlocBuilder<WordDefinitionCubit, WordDefinitionState>(
+    return BlocBuilder<WordDefinitionCubit, WordDefinitionState>(
         bloc: wordDefinitionCubit,
-        builder: (context, state) => state.when(
-          error: () => const Center(child: Text('Error')),
-          loading: () => const Center(child: Text('Loading')),
-          content: (wordDetail) => Column(
-            children: [Text(wordDetail.word)],
-          ),
-        ),
-      ),
-    );
+        builder: (context, state) {
+          return state.maybeWhen(
+              orElse: () => Container(),
+              error: () => const Center(child: Text('Error')),
+              loading: () => const Center(child: Text('Loading')),
+              content: (wordDetail, isFavorite) => Scaffold(
+                    appBar: AppBar(
+                      title: Text('Favorites'),
+                      actions: [
+                        IconButton(
+                            onPressed: () => wordDefinitionCubit.toggleFavorite(word: widget.word, userId: 'b57e89bf-279b-4edb-904d-b6da662a37a2'),
+                            icon: Icon(isFavorite ? Icons.star : Icons.star_border_outlined))
+                      ],
+                    ),
+                    body: Column(
+                      children: [Text(wordDetail.word)],
+                    ),
+                  ));
+        });
   }
 }

@@ -10,6 +10,7 @@ class WordDefinitionCubit extends Cubit<WordDefinitionState> {
   final CacheService cacheService;
   WordDefinitionCubit({required this.repository, required this.cacheService}) : super(const WordDefinitionState.loading());
   WordDetailDto? wordDefinition;
+  bool isFavorite = false;
 
   Future<void> load({required String word}) async {
     try {
@@ -19,7 +20,8 @@ class WordDefinitionCubit extends Cubit<WordDefinitionState> {
       if (wordDefinition != null) {
         WWLogger.l(message: 'Fetched details of ${wordDefinition!.word}');
         registerHistory(word: word, userId: 'b57e89bf-279b-4edb-904d-b6da662a37a2');
-        emit(WordDefinitionState.content(wordDetail: wordDefinition!));
+        isFavorite = await repository.isFavoriteWord(userId: 'b57e89bf-279b-4edb-904d-b6da662a37a2', word: word);
+        emit(WordDefinitionState.content(wordDetail: wordDefinition!, isFavorite: isFavorite));
       }
     } catch (exception, stackTrace) {
       WWLogger.e(message: exception.toString(), exception: exception, stackTrace: stackTrace);
@@ -44,5 +46,11 @@ class WordDefinitionCubit extends Cubit<WordDefinitionState> {
     await cacheService.putOnCache(key: word, value: response);
     WWLogger.i(message: 'Word: "$word" stored on cache');
     return response;
+  }
+
+  Future<void> toggleFavorite({required String word, required String userId}) async {
+    isFavorite ? await repository.unFavoriteWord(userId: userId, word: word) : await repository.favoriteWord(userId: userId, word: word);
+    isFavorite = await repository.isFavoriteWord(userId: 'b57e89bf-279b-4edb-904d-b6da662a37a2', word: word);
+    emit(WordDefinitionState.content(wordDetail: wordDefinition!, isFavorite: isFavorite));
   }
 }
