@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:word_wise/app/theme/app_text_theme.dart';
 import 'package:word_wise/core/inject.dart';
 import 'package:word_wise/core/routes.dart';
 
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      theme: ThemeData(textTheme: AppTextTheme.textTheme),
       routerConfig: router.routes,
       debugShowCheckedModeBanner: false,
     );

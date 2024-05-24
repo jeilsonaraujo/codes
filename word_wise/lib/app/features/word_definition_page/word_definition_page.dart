@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:word_wise/app/features/history_page/history_page.dart';
 import 'package:word_wise/app/features/word_definition_page/word_definition_cubit.dart';
 import 'package:word_wise/app/features/word_definition_page/word_definition_state.dart';
+import 'package:word_wise/app/theme/app_colors.dart';
+import 'package:word_wise/app/theme/app_text_theme.dart';
 import 'package:word_wise/core/inject.dart';
 
 class WordDefinitionPage extends StatefulWidget {
@@ -39,7 +41,7 @@ class _WordDefinitionPageState extends State<WordDefinitionPage> {
               loading: () => const Center(child: Text('Loading')),
               content: (wordDetail, isFavorite) => Scaffold(
                     appBar: AppBar(
-                      title: Text('Favorites'),
+                      title: Text('Word Definition'),
                       actions: [
                         IconButton(
                             onPressed: () => wordDefinitionCubit.toggleFavorite(word: widget.word, userId: 'b57e89bf-279b-4edb-904d-b6da662a37a2'),
@@ -47,7 +49,47 @@ class _WordDefinitionPageState extends State<WordDefinitionPage> {
                       ],
                     ),
                     body: Column(
-                      children: [Text(wordDetail.word)],
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 24.0),
+                          child: Center(
+                            child: Material(
+                              borderRadius: const BorderRadius.all(Radius.circular(8)),
+                              elevation: 4,
+                              child: Container(
+                                  width: MediaQuery.of(context).size.width * 0.8,
+                                  decoration: const BoxDecoration(
+                                    color: AppColors.primary100,
+                                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 16.0),
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            wordDetail.word,
+                                            style: AppTextTheme.headlineMedium,
+                                          ),
+                                        ),
+                                        ...List.generate(
+                                          wordDetail.phonetics.length,
+                                          (index) => Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              wordDetail.phonetics[index].text,
+                                              style: AppTextTheme.headlineSmall,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )),
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   ));
         });

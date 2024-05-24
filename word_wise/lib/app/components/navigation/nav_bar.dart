@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:word_wise/app/theme/app_colors.dart';
+import 'package:word_wise/app/theme/app_text_theme.dart';
 
 class WWNavBar extends StatefulWidget {
   const WWNavBar({super.key, required this.navigationItems});
@@ -14,20 +16,23 @@ class _WWNavBarState extends State<WWNavBar> {
     return Container(
       decoration: BoxDecoration(color: Colors.white, boxShadow: [
         BoxShadow(
-          color: const Color(0xFFFEFEFE).withOpacity(0.5),
+          color: AppColors.white100.withOpacity(0.5),
           spreadRadius: 2,
           blurRadius: 5,
-          offset: const Offset(0, 5), // changes position of shadow
+          offset: const Offset(0, 5),
         ),
         BoxShadow(
-          color: const Color(0xFF343434).withOpacity(0.5),
+          color: AppColors.black400.withOpacity(0.5),
           spreadRadius: 0.05,
           blurRadius: 5,
-          offset: const Offset(0, -7), // changes position of shadow
+          offset: const Offset(0, -7),
         ),
       ]),
-      height: 80,
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: widget.navigationItems),
+      height: 60,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: widget.navigationItems),
+      ),
     );
   }
 }
@@ -46,39 +51,55 @@ class WWNavItem extends StatefulWidget {
 class _WWNavItemState extends State<WWNavItem> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: InkWell(
-        onTap: widget.onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
-          height: 70,
-          width: 70,
-          decoration: BoxDecoration(
-            color: widget.selected ? const Color(0xFF533673) : const Color(0xFFAC9DBD),
-            boxShadow: widget.selected
-                ? [
-                    const BoxShadow(
-                      color: Color(0xA1343434),
-                      spreadRadius: 2,
-                      blurRadius: 8,
-                      offset: Offset(0, 2), // changes position of shadow
-                    ),
-                  ]
-                : [],
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Icon(widget.icon, size: 30, color: Colors.white),
-              Text(
-                widget.label,
-                style: const TextStyle(color: Colors.white),
+    return InkWell(
+      onTap: widget.onTap,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Align(
+            alignment: Alignment.center,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              height: widget.selected ? 70 : 0,
+              width: widget.selected ? 70 : 0,
+              decoration: BoxDecoration(
+                color: widget.selected ? AppColors.primary400 : AppColors.primary400.withOpacity(0),
+                boxShadow: widget.selected
+                    ? [
+                        const BoxShadow(
+                          color: AppColors.black400,
+                          spreadRadius: 2,
+                          blurRadius: 8,
+                          offset: Offset(0, 2),
+                        ),
+                      ]
+                    : [
+                        BoxShadow(
+                          color: AppColors.black400.withOpacity(0),
+                          spreadRadius: 2,
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                borderRadius: BorderRadius.circular(8),
               ),
-            ],
+            ),
           ),
-        ),
+          SizedBox(
+            height: 70,
+            width: 70,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Icon(widget.icon, size: 30, color: widget.selected ? AppColors.white900 : AppColors.primary600),
+                Text(
+                  widget.label,
+                  style: AppTextTheme.bodySmall.copyWith(color: widget.selected ? AppColors.white900 : AppColors.primary600),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
