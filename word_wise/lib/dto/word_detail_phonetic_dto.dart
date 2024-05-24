@@ -5,7 +5,10 @@ part 'word_detail_phonetic_dto.g.dart';
 
 @freezed
 class WordPhoneticDetailDto with _$WordPhoneticDetailDto {
-  const factory WordPhoneticDetailDto({@Default('') String text}) = _WordPhoneticDetailDto;
+  const factory WordPhoneticDetailDto({
+    @Default('') String text,
+    @Default('') String audio,
+  }) = _WordPhoneticDetailDto;
 
   factory WordPhoneticDetailDto.fromJson(Map<String, dynamic> json) => _$WordPhoneticDetailDtoFromJson(json);
 

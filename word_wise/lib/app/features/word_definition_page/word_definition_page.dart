@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:word_wise/app/components/loading_widget.dart';
 import 'package:word_wise/app/components/not_found_widget.dart';
+import 'package:word_wise/app/components/phonetic_widget.dart';
 import 'package:word_wise/app/components/word_detail_meaning_widget.dart';
 import 'package:word_wise/app/components/ww_button.dart';
 import 'package:word_wise/app/features/history_page/history_page.dart';
@@ -32,7 +33,7 @@ class _WordDefinitionPageState extends State<WordDefinitionPage> {
     super.initState();
   }
 
-  int currentPhonetics = 0;
+  int currentPhonetic = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -79,92 +80,56 @@ class _WordDefinitionPageState extends State<WordDefinitionPage> {
                           icon: Icon(isFavorite ? Icons.star : Icons.star_border_outlined))
                     ],
                   ),
-                  body: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 24.0),
-                        child: Center(
-                          child: Material(
-                            borderRadius: const BorderRadius.all(Radius.circular(8)),
-                            elevation: 4,
-                            child: Container(
-                                width: MediaQuery.of(context).size.width * 0.8,
-                                decoration: const BoxDecoration(
-                                  color: AppColors.primary100,
-                                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 16.0),
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          wordDetail.word,
-                                          style: AppTextTheme.headlineMedium,
-                                        ),
-                                      ),
-                                      if (wordDetail.phonetics.isNotEmpty)
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            wordDetail.phonetics[currentPhonetics].text,
-                                            style: AppTextTheme.headlineSmall,
-                                          ),
-                                        ),
-                                    ],
-                                  ),
-                                )),
+                  body: Padding(
+                    padding: const EdgeInsets.only(top: 24.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        PhoneticWidget(wordDetail: wordDetail, currentPhonetic: currentPhonetic),
+                        if (wordDetail.meanings.isNotEmpty)
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 18),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(AppLocalizations.of(context)!.wordDefinitionPageMeanings, style: AppTextTheme.headlineMedium),
+                                  Expanded(child: WordDetailMeaningsWidget(meanings: wordDetail.meanings)),
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                      if (wordDetail.meanings.isNotEmpty)
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 18),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                        if (wordDetail.phonetics.isNotEmpty)
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16.0).copyWith(bottom: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  AppLocalizations.of(context)!.wordDefinitionPageMeanings,
-                                  style: AppTextTheme.headlineMedium,
-                                ),
-                                Expanded(child: WordDetailMeaningsWidget(meanings: wordDetail.meanings)),
+                                WWButton(
+                                    onTap: currentPhonetic != 0 ? () => setState(() => currentPhonetic--) : null,
+                                    child: Row(children: [
+                                      const Icon(Icons.arrow_back, color: AppColors.white900),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        AppLocalizations.of(context)!.wordDefinitionPagePreviousPhonetic,
+                                        style: AppTextTheme.titleSmall.copyWith(color: AppColors.white900),
+                                      )
+                                    ])),
+                                WWButton(
+                                    onTap: currentPhonetic + 1 < wordDetail.phonetics.length ? () => setState(() => currentPhonetic++) : null,
+                                    child: Row(children: [
+                                      Text(
+                                        AppLocalizations.of(context)!.wordDefinitionPageNextPhonetic,
+                                        style: AppTextTheme.titleSmall.copyWith(color: AppColors.white900),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      const Icon(Icons.arrow_forward, color: AppColors.white900)
+                                    ])),
                               ],
                             ),
                           ),
-                        ),
-                      if (wordDetail.phonetics.isNotEmpty)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0).copyWith(bottom: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              WWButton(
-                                  onTap: currentPhonetics != 0 ? () => setState(() => currentPhonetics--) : null,
-                                  child: Row(children: [
-                                    const Icon(Icons.arrow_back, color: AppColors.white900),
-                                    const SizedBox(width: 8),
-                                    Text(
-                                      AppLocalizations.of(context)!.wordDefinitionPagePreviousPhonetic,
-                                      style: AppTextTheme.titleSmall.copyWith(color: AppColors.white900),
-                                    )
-                                  ])),
-                              WWButton(
-                                  onTap: currentPhonetics + 1 < wordDetail.phonetics.length ? () => setState(() => currentPhonetics++) : null,
-                                  child: Row(children: [
-                                    Text(
-                                      AppLocalizations.of(context)!.wordDefinitionPageNextPhonetic,
-                                      style: AppTextTheme.titleSmall.copyWith(color: AppColors.white900),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    const Icon(Icons.arrow_forward, color: AppColors.white900)
-                                  ])),
-                            ],
-                          ),
-                        ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               });
