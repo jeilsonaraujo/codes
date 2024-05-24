@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:word_wise/app/theme/app_text_theme.dart';
-import 'package:word_wise/core/inject.dart';
-import 'package:word_wise/core/routes.dart';
+import 'package:word_wise/core/core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,6 +14,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [Locale('en', 'US'), Locale('pt', 'BR')],
       theme: ThemeData(textTheme: AppTextTheme.textTheme),
       routerConfig: router.routes,
       debugShowCheckedModeBanner: false,
