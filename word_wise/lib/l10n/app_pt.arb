@@ -1,12 +1,24 @@
 {
+  "wordDefinitionPageLoadingMessage": "Carregando a definição da palavra",
+  "favoritesPageLoadingMessage": "Carregando favoritos",
+  "favoritesPageErrorMessage": "Aconteceu um erro enquanto carregávamos seus favoritos.",
+  "favoritesPageEmptyMessage": "Nenhum favorito salvo",
+  "favoritesPageTitle": "Favoritos",
+  "historyPageLoadingMessage": "Carregando o histórico",
+  "historyPageErrorMessage": "Aconteceu um erro enquanto carregávamos seu histórico.",
+  "historyPageEmptyMessage":"Nenhuma palavra foi visualizada ainda",
+  "historyPageTitle": "Histórico",
   "navigationItemFavorites": "Favoritos",
   "navigationItemHistory": "Histórico",
   "navigationItemWords": "Palavras",
+  "wordDefinitionNotFoundMessage": "Não foi possível encontrar a definição dessa palavra.",
+  "wordDefinitionPageMeanings": "Significados",
   "wordDefinitionPageNextPhonetic": "Anterior",
   "wordDefinitionPagePreviousPhonetic": "Próxima",
-  "wordDefinitionPageMeanings": "Significados",
   "wordDefinitionPageTitle": "Definição da Palavra",
-  "favoritesPageTitle": "Favoritos",
-  "historyPageTitle": "Histórico",
+  "wordsPageEmptyMessage": "Nenhuma Palavra foi encontrada",
+  "wordsPageErrorMessage": "Tivemos um problema enquanto tentávamos carregas a lista de palavras.",
+  "wordsPageLoadingMessage": "Carregando palavras",
   "wordsPageTitle": "Palavras"
+
 }

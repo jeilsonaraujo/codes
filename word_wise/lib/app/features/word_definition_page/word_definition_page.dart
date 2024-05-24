@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:word_wise/app/components/loading_widget.dart';
+import 'package:word_wise/app/components/not_found_widget.dart';
 import 'package:word_wise/app/components/word_detail_meaning_widget.dart';
 import 'package:word_wise/app/components/ww_button.dart';
 import 'package:word_wise/app/features/history_page/history_page.dart';
@@ -48,19 +50,18 @@ class _WordDefinitionPageState extends State<WordDefinitionPage> {
                     leadingWidth: 30,
                     iconTheme: const IconThemeData(color: AppColors.primary900),
                   ),
-                  body: const Center(child: Text('Error'))),
+                  body: Center(child: NotFoundWidget(message: AppLocalizations.of(context)!.wordDefinitionNotFoundMessage))),
               loading: () => Scaffold(
-                    appBar: AppBar(
-                      backgroundColor: AppColors.white100,
-                      shadowColor: Colors.transparent,
-                      title: Text(AppLocalizations.of(context)!.wordDefinitionPageTitle, style: AppTextTheme.headlineSmall.copyWith(color: AppColors.primary900)),
-                      surfaceTintColor: AppColors.primary900,
-                      actionsIconTheme: const IconThemeData(color: AppColors.primary900),
-                      leadingWidth: 30,
-                      iconTheme: const IconThemeData(color: AppColors.primary900),
-                    ),
-                    body: const Center(child: Text('Loading')),
+                  appBar: AppBar(
+                    backgroundColor: AppColors.white100,
+                    shadowColor: Colors.transparent,
+                    title: Text(AppLocalizations.of(context)!.wordDefinitionPageTitle, style: AppTextTheme.headlineSmall.copyWith(color: AppColors.primary900)),
+                    surfaceTintColor: AppColors.primary900,
+                    actionsIconTheme: const IconThemeData(color: AppColors.primary900),
+                    leadingWidth: 30,
+                    iconTheme: const IconThemeData(color: AppColors.primary900),
                   ),
+                  body: LoadingWidget(message: AppLocalizations.of(context)!.wordDefinitionPageLoadingMessage)),
               content: (wordDetail, isFavorite) {
                 return Scaffold(
                   appBar: AppBar(

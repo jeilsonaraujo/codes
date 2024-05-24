@@ -28,9 +28,9 @@ class _WWNavBarState extends State<WWNavBar> {
           offset: const Offset(0, -7),
         ),
       ]),
-      height: 60,
+      height: 70,
       child: Padding(
-        padding: const EdgeInsets.only(top: 8.0),
+        padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: widget.navigationItems),
       ),
     );

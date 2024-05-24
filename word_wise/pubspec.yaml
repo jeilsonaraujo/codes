@@ -25,6 +25,8 @@ dependencies:
   flutter_bloc: ^8.1.5
   go_router: ^13.2.0
   google_fonts: ^5.1.0
+  lottie: ^2.7.0
+
   flutter_localizations:
     sdk: flutter
 
@@ -32,6 +34,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.3
+  flutter_gen_runner: ^5.4.0
   flutter_lints: ^2.0.0
   melos: ^3.4.0
   build_runner: ^2.4.9
@@ -43,3 +46,4 @@ flutter:
   generate: true
   assets:
     - .env
+    - assets/lotties/

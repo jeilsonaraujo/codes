@@ -1,5 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:word_wise/app/components/empty_widget.dart';
 import 'package:word_wise/app/components/favorite_button_widget.dart';
+import 'package:word_wise/app/components/loading_widget.dart';
+import 'package:word_wise/app/components/not_found_widget.dart';
 import 'package:word_wise/app/features/favorites_page/favorites_cubit.dart';
 import 'package:word_wise/app/features/favorites_page/favorites_state.dart';
 import 'package:word_wise/app/features/word_definition_page/word_definition_page.dart';
@@ -43,9 +46,9 @@ class _FavoritesPageState extends State<FavoritesPage> {
               ),
               body: Builder(
                 builder: (context) {
-                  if (state.isLoading) return const Center(child: Text('Loading'));
-                  if (state.isError) return const Center(child: Text('Error'));
-                  if (state.isEmpty) return const Center(child: Text('Empty'));
+                  if (state.isLoading) return LoadingWidget(message: AppLocalizations.of(context)!.favoritesPageLoadingMessage);
+                  if (state.isError) return NotFoundWidget(message: AppLocalizations.of(context)!.favoritesPageErrorMessage);
+                  if (state.isEmpty) return EmptyWidget(message: AppLocalizations.of(context)!.favoritesPageEmptyMessage);
 
                   final words = state.getWords;
 
