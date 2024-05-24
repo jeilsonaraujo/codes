@@ -9,6 +9,7 @@ import 'package:word_wise/app/features/words_page/words_cubit.dart';
 import 'package:word_wise/core/logger.dart';
 import 'package:word_wise/core/routes.dart';
 import 'package:word_wise/repositories/word_repository.dart';
+import 'package:word_wise/services/auth_service.dart';
 import 'package:word_wise/services/cache_service.dart';
 import 'package:word_wise/services/favorite_service.dart';
 import 'package:word_wise/services/history_service.dart';
@@ -45,13 +46,16 @@ Future<void> setupInjection() async {
 
   inject.registerLazySingleton<WordsCubit>(() => WordsCubit(repository: inject<WordRepository>()));
 
-  inject.registerLazySingleton<HistoryCubit>(() => HistoryCubit(repository: inject<WordRepository>()));
+  inject.registerLazySingleton<HistoryCubit>(() => HistoryCubit(authService: inject<AuthService>(), repository: inject<WordRepository>()));
 
-  inject.registerLazySingleton<WordDefinitionCubit>(() => WordDefinitionCubit(repository: inject<WordRepository>(), cacheService: inject<CacheService>()));
+  inject.registerLazySingleton<WordDefinitionCubit>(
+      () => WordDefinitionCubit(authService: inject<AuthService>(), repository: inject<WordRepository>(), cacheService: inject<CacheService>()));
 
-  inject.registerLazySingleton<FavoritesCubit>(() => FavoritesCubit(repository: inject<WordRepository>()));
+  inject.registerLazySingleton<FavoritesCubit>(() => FavoritesCubit(authService: inject<AuthService>(), repository: inject<WordRepository>()));
 
   inject.registerLazySingleton<SupabaseClient>(() => Supabase.instance.client);
+
+  inject.registerLazySingleton<AuthService>(() => AuthService(supabaseWrapper: inject<SupabaseWrapper>()));
 
   inject.registerLazySingleton<SupabaseWrapper>(() => SupabaseWrapper(supabaseClient: inject<SupabaseClient>()));
 
@@ -69,7 +73,7 @@ Future<void> setupInjection() async {
 
   inject.registerLazySingleton<FavoriteService>(() => FavoriteService(supabaseWrapper: inject<SupabaseWrapper>()));
 
-  inject.registerLazySingleton<AppRouter>(() => AppRouter());
+  inject.registerLazySingleton<AppRouter>(() => AppRouter(authService: inject<AuthService>()));
 
   inject.registerLazySingleton<WordRepository>(() => WordRepository(
         historyService: inject<HistoryService>(),

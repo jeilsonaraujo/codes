@@ -76,7 +76,7 @@ class _WordDefinitionPageState extends State<WordDefinitionPage> {
                     actions: [
                       IconButton(
                           splashRadius: 20,
-                          onPressed: () => wordDefinitionCubit.toggleFavorite(word: widget.word, userId: 'b57e89bf-279b-4edb-904d-b6da662a37a2'),
+                          onPressed: () => wordDefinitionCubit.toggleFavorite(word: widget.word),
                           icon: Icon(isFavorite ? Icons.star : Icons.star_border_outlined))
                     ],
                   ),
@@ -99,7 +99,7 @@ class _WordDefinitionPageState extends State<WordDefinitionPage> {
                               ),
                             ),
                           ),
-                        if (wordDetail.phonetics.isNotEmpty)
+                        if (wordDetail.phonetics.length > 1)
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16.0).copyWith(bottom: 20),
                             child: Row(

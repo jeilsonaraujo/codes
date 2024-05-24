@@ -1,4 +1,12 @@
 {
+  "authLogout": "Logout",
+  "authSignIn": "Sign in",
+  "authSignInPageEmail": "email",
+  "authSignInPageErrorLoginSnackbarMessage": "Email or Password incorrect, please try again using a different",
+  "authSignInPageForgotPassword": "Forgot your password ?",
+  "authSignInPagePassword": "password",
+  "authSignInPageSignInToContinue": "Hello there, sign in to keep favorites and history!",
+  "authSignInPageWelcome": "Welcome Back",
   "favoritesPageEmptyMessage": "No favorite was found",
   "favoritesPageErrorMessage": "We had an issue while trying to load you favorite words.",
   "favoritesPageLoadingMessage": "Loading favorites",
@@ -17,7 +25,7 @@
   "wordDefinitionPagePreviousPhonetic": "Previous",
   "wordDefinitionPageTitle": "Word Definition",
   "wordsPageEmptyMessage": "No words was found",
-  "wordsPageErrorMessage": "We had an issue while trying to load the list of words.",
+  "wordsPageErrorMessage": "We had an issue while trying to load the list of words",
   "wordsPageLoadingMessage": "Loading words",
   "wordsPageTitle": "Words"
 }

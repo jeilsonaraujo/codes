@@ -1,4 +1,5 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:word_wise/dto/user_dto.dart';
 
 enum FavoritesTableColumns { id, userId, wordName, all }
 
@@ -96,5 +97,22 @@ class SupabaseWrapper {
     required int paginationEnd,
   }) async {
     return await supabaseClient.from(table).select(columns).range(paginationStart, paginationEnd);
+  }
+
+  Future<UserDto?> signInWithPassword({required String email, required String password}) async {
+    final AuthResponse res = await supabaseClient.auth.signInWithPassword(email: email, password: password);
+
+    final User? user = res.user;
+    return user != null ? UserDto(email: user.email ?? '', userId: user.id) : null;
+  }
+
+  Future<UserDto?> getSignedUser() async {
+    final User? user = supabaseClient.auth.currentUser;
+    return user != null ? UserDto(email: user.email ?? '', userId: user.id) : null;
+  }
+
+  Future<UserDto?> signOut() async {
+    await supabaseClient.auth.signOut();
+    return null;
   }
 }

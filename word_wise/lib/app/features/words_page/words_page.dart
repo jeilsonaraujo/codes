@@ -50,7 +50,7 @@ class _WordsPageState extends State<WordsPage> {
         leading: Container(),
         backgroundColor: AppColors.white100,
         shadowColor: Colors.transparent,
-        title: Text(AppLocalizations.of(context)!.wordDefinitionPageTitle, style: AppTextTheme.headlineSmall.copyWith(color: AppColors.primary900)),
+        title: Text(AppLocalizations.of(context)!.wordsPageTitle, style: AppTextTheme.headlineSmall.copyWith(color: AppColors.primary900)),
         surfaceTintColor: AppColors.primary900,
         actionsIconTheme: const IconThemeData(color: AppColors.primary900),
         leadingWidth: 30,

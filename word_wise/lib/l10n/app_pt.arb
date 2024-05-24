@@ -1,17 +1,26 @@
 {
-  "wordDefinitionPageLoadingMessage": "Carregando a definição da palavra",
-  "favoritesPageLoadingMessage": "Carregando favoritos",
-  "favoritesPageErrorMessage": "Aconteceu um erro enquanto carregávamos seus favoritos.",
+
+  "authSignInPageForgotPassword": "Esqueceu a senha ?",
+  "authLogout":"Sair",
+  "authSignIn":"Sign in",
+  "authSignInPageEmail": "email",
+  "authSignInPageErrorLoginSnackbarMessage": "Email ou Senha incorretas, verifique os dados e tente novamente",
+  "authSignInPagePassword": "senha",
+  "authSignInPageSignInToContinue":"Olá, faça login e mantenha seus favoritos e histórico atualizados!",
+  "authSignInPageWelcome":"Bem-vindo",
   "favoritesPageEmptyMessage": "Nenhum favorito salvo",
+  "favoritesPageErrorMessage": "Aconteceu um erro enquanto carregávamos seus favoritos.",
+  "favoritesPageLoadingMessage": "Carregando favoritos",
   "favoritesPageTitle": "Favoritos",
-  "historyPageLoadingMessage": "Carregando o histórico",
-  "historyPageErrorMessage": "Aconteceu um erro enquanto carregávamos seu histórico.",
   "historyPageEmptyMessage":"Nenhuma palavra foi visualizada ainda",
+  "historyPageErrorMessage": "Aconteceu um erro enquanto carregávamos seu histórico.",
+  "historyPageLoadingMessage": "Carregando o histórico",
   "historyPageTitle": "Histórico",
   "navigationItemFavorites": "Favoritos",
   "navigationItemHistory": "Histórico",
   "navigationItemWords": "Palavras",
   "wordDefinitionNotFoundMessage": "Não foi possível encontrar a definição dessa palavra.",
+  "wordDefinitionPageLoadingMessage": "Carregando a definição da palavra",
   "wordDefinitionPageMeanings": "Significados",
   "wordDefinitionPageNextPhonetic": "Anterior",
   "wordDefinitionPagePreviousPhonetic": "Próxima",
@@ -20,5 +29,4 @@
   "wordsPageErrorMessage": "Tivemos um problema enquanto tentávamos carregas a lista de palavras.",
   "wordsPageLoadingMessage": "Carregando palavras",
   "wordsPageTitle": "Palavras"
-
 }

@@ -16,8 +16,11 @@ class $AssetsLottiesGen {
   /// File path: assets/lotties/not_found.json
   String get notFound => 'assets/lotties/not_found.json';
 
+  /// File path: assets/lotties/waiting_login.json
+  String get waitingLogin => 'assets/lotties/waiting_login.json';
+
   /// List of all assets
-  List<String> get values => [empty, notFound];
+  List<String> get values => [empty, notFound, waitingLogin];
 }
 
 class Assets {
