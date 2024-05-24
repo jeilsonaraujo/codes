@@ -42,8 +42,8 @@ class WordRepository {
     return await wordService.getWords(itensFetched: itensFetched);
   }
 
-  Future<List<WordHistoryDto>> getHistory({required String userId}) async {
-    return await historyService.getHistory(userId: userId);
+  Future<List<WordHistoryDto>> getHistory({required String userId, String? sortId, bool? ascending}) async {
+    return await historyService.getHistory(userId: userId, sortId: sortId, ascending: ascending);
   }
 
   Future<void> registerHistoryVisit({required String word, required String userId}) async {

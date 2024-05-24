@@ -58,12 +58,35 @@ class SupabaseWrapper {
     String? valueEQA,
     String? columnEQB,
     String? valueEQB,
+    String? orderId,
+    bool? ascending,
   }) async {
     final filterEQA = columnEQA != null && valueEQA != null;
     final filterEQB = columnEQB != null && valueEQB != null;
     if (filterEQA) return await supabaseClient.from(table).select(columns).eq(columnEQA, valueEQA);
     if (filterEQA && filterEQB) return await supabaseClient.from(table).select(columns).eq(columnEQA, valueEQA).eq(columnEQB, valueEQB);
     return await supabaseClient.from(table).select(columns);
+  }
+
+  Future<List<Map<String, dynamic>>> getSorted({
+    required String table,
+    required String columns,
+    String? columnEQA,
+    String? valueEQA,
+    String? columnEQB,
+    String? valueEQB,
+    required String orderId,
+    required bool ascending,
+  }) async {
+    final filterEQA = columnEQA != null && valueEQA != null;
+    final filterEQB = columnEQB != null && valueEQB != null;
+    if (filterEQA) {
+      return await supabaseClient.from(table).select(columns).eq(columnEQA, valueEQA).order(orderId, ascending: ascending);
+    }
+    if (filterEQA && filterEQB) {
+      return await supabaseClient.from(table).select(columns).eq(columnEQA, valueEQA).eq(columnEQB, valueEQB).order(orderId, ascending: ascending);
+    }
+    return await supabaseClient.from(table).select(columns).order(orderId, ascending: ascending);
   }
 
   Future<List<Map<String, dynamic>>> getPaginated({

@@ -6,13 +6,23 @@ class HistoryService {
 
   HistoryService({required this.supabaseWrapper});
 
-  Future<List<WordHistoryDto>> getHistory({required String userId}) async {
-    final data = await supabaseWrapper.get(
-      table: SupabaseWrapper.historyTableName,
-      columns: HistoryTableColumns.all.name,
-      columnEQA: HistoryTableColumns.userId.name,
-      valueEQA: userId,
-    );
+  Future<List<WordHistoryDto>> getHistory({required String userId, String? sortId, bool? ascending}) async {
+    final data = sortId != null
+        ? await supabaseWrapper.getSorted(
+            table: SupabaseWrapper.historyTableName,
+            columns: HistoryTableColumns.all.name,
+            columnEQA: HistoryTableColumns.userId.name,
+            valueEQA: userId,
+            orderId: sortId,
+            ascending: ascending ?? true,
+          )
+        : await supabaseWrapper.get(
+            table: SupabaseWrapper.historyTableName,
+            columns: HistoryTableColumns.all.name,
+            columnEQA: HistoryTableColumns.userId.name,
+            valueEQA: userId,
+          );
+
     final result = data.map((word) => WordHistoryDto.fromJson(word)).toList();
 
     return result;

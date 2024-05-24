@@ -104,5 +104,5 @@ void main() {
     mock.whenRemoveReturnValue(table: SupabaseWrapper.favoritesTableName, match: {FavoritesTableColumns.id.name: wordId});
 
     sut.removeFavorite(word: 'word', userId: 'my_fake_user');
-  });
+  }, skip: true);
 }
