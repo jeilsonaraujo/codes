@@ -38,7 +38,7 @@ class _WordDefinitionPageState extends State<WordDefinitionPage> {
           error: () => const Center(child: Text('Error')),
           loading: () => const Center(child: Text('Loading')),
           content: (wordDetail) => Column(
-            children: [Text(wordDetail.word ?? '')],
+            children: [Text(wordDetail.word)],
           ),
         ),
       ),

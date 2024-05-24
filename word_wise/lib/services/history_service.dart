@@ -1,3 +1,4 @@
+import 'package:word_wise/dto/word_history_dto.dart';
 import 'package:word_wise/wrappers/supabase_wrapper.dart';
 
 class HistoryService {
@@ -5,14 +6,14 @@ class HistoryService {
 
   HistoryService({required this.supabaseWrapper});
 
-  Future<List<String>> getHistory({required String userId}) async {
+  Future<List<WordHistoryDto>> getHistory({required String userId}) async {
     final data = await supabaseWrapper.get(
       table: SupabaseWrapper.historyTableName,
       columns: HistoryTableColumns.all.name,
       columnEQA: HistoryTableColumns.userId.name,
       valueEQA: userId,
     );
-    final result = data.map((e) => e[HistoryTableColumns.wordName.name] as String? ?? '').toList();
+    final result = data.map((word) => WordHistoryDto.fromJson(word)).toList();
 
     return result;
   }

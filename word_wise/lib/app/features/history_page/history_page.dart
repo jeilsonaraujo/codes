@@ -21,24 +21,8 @@ class _HistoryPageState extends State<HistoryPage> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) => wordsCubit.load());
-    scrollController.addListener(_scrollListener);
 
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    scrollController.dispose();
-    super.dispose();
-  }
-
-  final ScrollController scrollController = ScrollController();
-
-  _scrollListener() {
-    const spaceBeforeEndOfScroll = 50;
-    if (scrollController.offset >= scrollController.position.maxScrollExtent - spaceBeforeEndOfScroll && !scrollController.position.outOfRange) {
-      wordsCubit.paginate();
-    }
   }
 
   @override
@@ -59,8 +43,7 @@ class _HistoryPageState extends State<HistoryPage> {
                   child: ListView.builder(
                     itemCount: words.length,
                     itemBuilder: (context, index) => HistoryWidgetButton(
-                      label: words[index],
-                      dateTime: '2024-05-23T19:25:50.541029+00:00',
+                      wordHistory: words[index],
                     ),
                   ));
             },

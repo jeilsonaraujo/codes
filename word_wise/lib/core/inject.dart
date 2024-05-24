@@ -47,7 +47,7 @@ Future<void> setupInjection() async {
 
   inject.registerLazySingleton<HistoryCubit>(() => HistoryCubit(repository: inject<WordRepository>()));
 
-  inject.registerLazySingleton<WordDefinitionCubit>(() => WordDefinitionCubit(repository: inject<WordRepository>()));
+  inject.registerLazySingleton<WordDefinitionCubit>(() => WordDefinitionCubit(repository: inject<WordRepository>(), cacheService: inject<CacheService>()));
 
   inject.registerLazySingleton<FavoritesCubit>(() => FavoritesCubit(repository: inject<WordRepository>()));
 

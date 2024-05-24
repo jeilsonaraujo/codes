@@ -1,4 +1,5 @@
 import 'package:word_wise/dto/word_detail_dto.dart';
+import 'package:word_wise/dto/word_history_dto.dart';
 import 'package:word_wise/services/favorite_service.dart';
 import 'package:word_wise/services/history_service.dart';
 import 'package:word_wise/services/word_definition_service.dart';
@@ -37,7 +38,7 @@ class WordRepository {
     return await wordService.getWords(itensFetched: itensFetched);
   }
 
-  Future<List<String>> getHistory({required String userId}) async {
+  Future<List<WordHistoryDto>> getHistory({required String userId}) async {
     return await historyService.getHistory(userId: userId);
   }
 

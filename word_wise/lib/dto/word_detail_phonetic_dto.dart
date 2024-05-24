@@ -11,5 +11,5 @@ class WordPhoneticDetailDto with _$WordPhoneticDetailDto {
 
   factory WordPhoneticDetailDto.fromJson(Map<String, dynamic> json) => _$WordPhoneticDetailDtoFromJson(json);
 
-  factory WordPhoneticDetailDto.fixture() => WordPhoneticDetailDto(text: '/həˈloʊ/');
+  factory WordPhoneticDetailDto.fixture() => const WordPhoneticDetailDto(text: '/həˈloʊ/');
 }
