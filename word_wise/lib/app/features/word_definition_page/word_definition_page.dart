@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:word_wise/app/components/word_detail_meaning_widget.dart';
+import 'package:word_wise/app/components/ww_button.dart';
 import 'package:word_wise/app/features/history_page/history_page.dart';
 import 'package:word_wise/app/features/word_definition_page/word_definition_cubit.dart';
 import 'package:word_wise/app/features/word_definition_page/word_definition_state.dart';
 import 'package:word_wise/app/theme/app_colors.dart';
-import 'package:word_wise/app/theme/app_text_theme.dart';
-import 'package:word_wise/core/inject.dart';
+import 'package:word_wise/core/core.dart';
 
 class WordDefinitionPage extends StatefulWidget {
   const WordDefinitionPage({super.key, required this.word});
@@ -30,6 +30,8 @@ class _WordDefinitionPageState extends State<WordDefinitionPage> {
     super.initState();
   }
 
+  int currentPhonetics = 0;
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<WordDefinitionCubit, WordDefinitionState>(
@@ -41,7 +43,13 @@ class _WordDefinitionPageState extends State<WordDefinitionPage> {
               loading: () => const Center(child: Text('Loading')),
               content: (wordDetail, isFavorite) => Scaffold(
                     appBar: AppBar(
-                      title: Text('Word Definition'),
+                      backgroundColor: AppColors.white100,
+                      shadowColor: Colors.transparent,
+                      title: Text(AppLocalizations.of(context)!.wordDefinitionPageTitle, style: AppTextTheme.headlineSmall.copyWith(color: AppColors.primary900)),
+                      surfaceTintColor: AppColors.primary900,
+                      actionsIconTheme: const IconThemeData(color: AppColors.primary900),
+                      leadingWidth: 30,
+                      iconTheme: const IconThemeData(color: AppColors.primary900),
                       actions: [
                         IconButton(
                             onPressed: () => wordDefinitionCubit.toggleFavorite(word: widget.word, userId: 'b57e89bf-279b-4edb-904d-b6da662a37a2'),
@@ -49,6 +57,7 @@ class _WordDefinitionPageState extends State<WordDefinitionPage> {
                       ],
                     ),
                     body: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(top: 24.0),
@@ -73,22 +82,65 @@ class _WordDefinitionPageState extends State<WordDefinitionPage> {
                                             style: AppTextTheme.headlineMedium,
                                           ),
                                         ),
-                                        ...List.generate(
-                                          wordDetail.phonetics.length,
-                                          (index) => Padding(
+                                        if (wordDetail.phonetics.isNotEmpty)
+                                          Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                              wordDetail.phonetics[index].text,
+                                              wordDetail.phonetics[currentPhonetics].text,
                                               style: AppTextTheme.headlineSmall,
                                             ),
                                           ),
-                                        ),
                                       ],
                                     ),
                                   )),
                             ),
                           ),
-                        )
+                        ),
+                        if (wordDetail.meanings.isNotEmpty)
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 18),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    AppLocalizations.of(context)!.wordDefinitionPageMeanings,
+                                    style: AppTextTheme.headlineMedium,
+                                  ),
+                                  Expanded(child: WordDetailMeaningsWidget(meanings: wordDetail.meanings)),
+                                ],
+                              ),
+                            ),
+                          ),
+                        if (wordDetail.phonetics.isNotEmpty)
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16.0).copyWith(bottom: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                WWButton(
+                                    onTap: currentPhonetics != 0 ? () => setState(() => currentPhonetics--) : null,
+                                    child: Row(children: [
+                                      const Icon(Icons.arrow_back, color: AppColors.white900),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        AppLocalizations.of(context)!.wordDefinitionPagePreviousPhonetic,
+                                        style: AppTextTheme.titleSmall.copyWith(color: AppColors.white900),
+                                      )
+                                    ])),
+                                WWButton(
+                                    onTap: currentPhonetics + 1 < wordDetail.phonetics.length ? () => setState(() => currentPhonetics++) : null,
+                                    child: Row(children: [
+                                      Text(
+                                        AppLocalizations.of(context)!.wordDefinitionPageNextPhonetic,
+                                        style: AppTextTheme.titleSmall.copyWith(color: AppColors.white900),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      const Icon(Icons.arrow_forward, color: AppColors.white900)
+                                    ])),
+                              ],
+                            ),
+                          ),
                       ],
                     ),
                   ));

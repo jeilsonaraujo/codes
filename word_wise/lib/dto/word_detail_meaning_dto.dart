@@ -8,7 +8,7 @@ part 'word_detail_meaning_dto.g.dart';
 class WordDetailMeaningDto with _$WordDetailMeaningDto {
   const factory WordDetailMeaningDto({
     @Default('') String partOfSpeech,
-    @Default([]) List<WordDetailDefinitionsDto>? definitions,
+    @Default([]) List<WordDetailDefinitionsDto> definitions,
   }) = _WordDetailMeaningDto;
 
   factory WordDetailMeaningDto.fromJson(Map<String, dynamic> json) => _$WordDetailMeaningDtoFromJson(json);

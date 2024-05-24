@@ -1,5 +1,10 @@
 {
   "navigationItemFavorites": "Favoritos",
   "navigationItemHistory": "Histórico",
-  "navigationItemWords": "Palavras" 
+  "navigationItemWords": "Palavras",
+  "wordDefinitionPageNextPhonetic": "Anterior",
+  "wordDefinitionPagePreviousPhonetic": "Próxima",
+  "wordDefinitionPageMeanings": "Significados",
+    "wordDefinitionPageTitle": "Definição da Palavra"
+
 }

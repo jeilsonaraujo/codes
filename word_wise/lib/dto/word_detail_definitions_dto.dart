@@ -13,5 +13,5 @@ class WordDetailDefinitionsDto with _$WordDetailDefinitionsDto {
   }) = _WordDetailDefinitionsDto;
 
   factory WordDetailDefinitionsDto.fromJson(Map<String, dynamic> json) => _$WordDetailDefinitionsDtoFromJson(json);
-  factory WordDetailDefinitionsDto.fixture() => const WordDetailDefinitionsDto(definition: 'hello', synonyms: ["greetings"]);
+  factory WordDetailDefinitionsDto.fixture() => const WordDetailDefinitionsDto(definition: 'verb', synonyms: ["greetings"]);
 }

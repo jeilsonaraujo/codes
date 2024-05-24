@@ -1,5 +1,9 @@
 {
   "navigationItemFavorites": "Favorites",
   "navigationItemHistory": "History",
-  "navigationItemWords": "Words"
+  "navigationItemWords": "Words",
+  "wordDefinitionPageMeanings": "Meanings",
+  "wordDefinitionPageNextPhonetic": "Next",
+  "wordDefinitionPagePreviousPhonetic": "Previous",
+  "wordDefinitionPageTitle": "Word Definition"
 }
