@@ -1,23 +1,17 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
+part 'word_detail_definitions_dto.freezed.dart';
 part 'word_detail_definitions_dto.g.dart';
 
-@JsonSerializable()
-class WordDetailDefinitionsDto {
-  final String? definition;
-  final List<String>? synonyms;
-  final List<String>? antonyms;
-  final String? example;
-
-  WordDetailDefinitionsDto({
-    this.definition,
-    this.synonyms,
-    this.antonyms,
-    this.example,
-  });
+@freezed
+class WordDetailDefinitionsDto with _$WordDetailDefinitionsDto {
+  const factory WordDetailDefinitionsDto({
+    @Default('') String definition,
+    @Default([]) List<String> synonyms,
+    @Default([]) List<String> antonyms,
+    @Default('') String example,
+  }) = _WordDetailDefinitionsDto;
 
   factory WordDetailDefinitionsDto.fromJson(Map<String, dynamic> json) => _$WordDetailDefinitionsDtoFromJson(json);
-  factory WordDetailDefinitionsDto.fixture() => WordDetailDefinitionsDto(definition: 'hello', synonyms: ["greetings"]);
-
-  Map<String, dynamic> toJson() => _$WordDetailDefinitionsDtoToJson(this);
+  factory WordDetailDefinitionsDto.fixture() => const WordDetailDefinitionsDto(definition: 'hello', synonyms: ["greetings"]);
 }
