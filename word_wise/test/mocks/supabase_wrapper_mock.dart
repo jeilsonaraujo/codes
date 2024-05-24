@@ -1,5 +1,5 @@
 import 'package:mocktail/mocktail.dart';
-import 'package:word_wise/core/wrappers/supabase_wrapper.dart';
+import 'package:word_wise/wrappers/supabase_wrapper.dart';
 
 class SupabaseWrapperMock extends Mock implements SupabaseWrapper {
   resetMock() => reset(this);

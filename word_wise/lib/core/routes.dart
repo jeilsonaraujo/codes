@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:word_wise/app/components/navigation/app_navigation.dart';
 import 'package:word_wise/app/features/favorites_page/favorites_page.dart';
 import 'package:word_wise/app/features/history_page/history_page.dart';
+import 'package:word_wise/app/features/word_definition_page/word_definition_page.dart';
 import 'package:word_wise/app/features/words_page/words_page.dart';
-import 'package:word_wise/components/navigation/app_navigation.dart';
 
 class AppRouter {
   final routes = GoRouter(
@@ -29,13 +30,25 @@ class AppRouter {
               ),
               routes: [
                 GoRoute(
-                  path: WordsPage.path,
-                  pageBuilder: (context, state) => _buildPageWithDefaultTransition<void>(
-                    state: state,
-                    context: context,
-                    child: const WordsPage(),
-                  ),
-                ),
+                    path: WordsPage.path,
+                    pageBuilder: (context, state) => _buildPageWithDefaultTransition<void>(
+                          state: state,
+                          context: context,
+                          child: const WordsPage(),
+                        ),
+                    routes: [
+                      GoRoute(
+                        path: '${WordDefinitionPage.path}/:word',
+                        pageBuilder: (context, state) {
+                          final word = state.pathParameters['word']!;
+                          return _buildPageWithDefaultTransition<void>(
+                            context: context,
+                            state: state,
+                            child: WordDefinitionPage(word: word),
+                          );
+                        },
+                      ),
+                    ]),
                 GoRoute(
                   path: 'favorites',
                   pageBuilder: (context, state) => _buildPageWithDefaultTransition<void>(
@@ -55,6 +68,7 @@ class AppRouter {
               ],
             )
           ]),
+
       // GoRoute(
       //   path: '/login',
       //   pageBuilder: (context, state) => _buildPageWithDefaultTransition<void>(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:word_wise/app/components/history_button_widget.dart';
 import 'package:word_wise/app/features/history_page/history_cubit.dart';
 import 'package:word_wise/app/features/history_page/history_page.dart';
 import 'package:word_wise/app/features/history_page/history_state.dart';
-import 'package:word_wise/components/history_button_widget.dart';
 import 'package:word_wise/core/inject.dart';
 
 export 'package:flutter_bloc/flutter_bloc.dart';

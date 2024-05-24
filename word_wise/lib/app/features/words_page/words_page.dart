@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:word_wise/app/components/word_button_widget.dart';
+import 'package:word_wise/app/features/word_definition_page/word_definition_page.dart';
 import 'package:word_wise/app/features/words_page/words_cubit.dart';
-import 'package:word_wise/app/features/words_page/words_page.dart';
 import 'package:word_wise/app/features/words_page/words_state.dart';
-import 'package:word_wise/components/word_button_widget.dart';
 import 'package:word_wise/core/inject.dart';
-
-export 'package:flutter_bloc/flutter_bloc.dart';
 
 class WordsPage extends StatefulWidget {
   const WordsPage({super.key});
@@ -67,7 +66,13 @@ class _WordsPageState extends State<WordsPage> {
                           words.length,
                           (index) => Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: WordButtonWidget(label: words[index].toUpperCase()),
+                                child: WordButtonWidget(
+                                  label: words[index].toUpperCase(),
+                                  onTap: () => WordDefinitionPage.push(
+                                    context,
+                                    word: words[index],
+                                  ),
+                                ),
                               )),
                       ...[if (state.isPaginating) const Center(child: CircularProgressIndicator())],
                     ]),

@@ -4,16 +4,19 @@ import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:word_wise/app/features/favorites_page/favorites_cubit.dart';
 import 'package:word_wise/app/features/history_page/history_cubit.dart';
+import 'package:word_wise/app/features/word_definition_page/word_definition_cubit.dart';
 import 'package:word_wise/app/features/words_page/words_cubit.dart';
 import 'package:word_wise/core/logger.dart';
 import 'package:word_wise/core/routes.dart';
-import 'package:word_wise/core/wrappers/supabase_wrapper.dart';
 import 'package:word_wise/repositories/word_repository.dart';
 import 'package:word_wise/services/cache_service.dart';
 import 'package:word_wise/services/favorite_service.dart';
 import 'package:word_wise/services/history_service.dart';
 import 'package:word_wise/services/word_definition_service.dart';
 import 'package:word_wise/services/word_service.dart';
+import 'package:word_wise/wrappers/dio_wrapper.dart';
+import 'package:word_wise/wrappers/hive_wrapper.dart';
+import 'package:word_wise/wrappers/supabase_wrapper.dart';
 
 GetIt inject = GetIt.instance;
 
@@ -22,7 +25,7 @@ Future<void> setupInjection() async {
 
   await inject.reset();
 
-  final cache = await CacheService.setupHive();
+  final cache = await HiveWrapper.openBox(boxName: 'apiCache', timeToLiveCacheInHours: 2);
 
   String supabaseUrl = '';
   String supabaseAnonKey = '';
@@ -44,15 +47,21 @@ Future<void> setupInjection() async {
 
   inject.registerLazySingleton<HistoryCubit>(() => HistoryCubit(repository: inject<WordRepository>()));
 
+  inject.registerLazySingleton<WordDefinitionCubit>(() => WordDefinitionCubit(repository: inject<WordRepository>()));
+
   inject.registerLazySingleton<FavoritesCubit>(() => FavoritesCubit(repository: inject<WordRepository>()));
 
   inject.registerLazySingleton<SupabaseClient>(() => Supabase.instance.client);
 
   inject.registerLazySingleton<SupabaseWrapper>(() => SupabaseWrapper(supabaseClient: inject<SupabaseClient>()));
 
-  inject.registerLazySingleton<CacheService>(() => CacheService(hiveBox: cache));
+  inject.registerLazySingleton<DioWrapper>(() => DioWrapper(dio: inject<Dio>()));
 
-  inject.registerLazySingleton<WordDefinitionService>(() => WordDefinitionService(dio: inject<Dio>()));
+  inject.registerLazySingleton<HiveWrapper>(() => HiveWrapper(box: cache));
+
+  inject.registerLazySingleton<CacheService>(() => CacheService(hiveWrapper: inject<HiveWrapper>()));
+
+  inject.registerLazySingleton<WordDefinitionService>(() => WordDefinitionService(dioWrapper: inject<DioWrapper>()));
 
   inject.registerLazySingleton<WordService>(() => WordService(supabaseWrapper: inject<SupabaseWrapper>()));
 

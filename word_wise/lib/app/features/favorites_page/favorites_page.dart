@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:word_wise/app/components/favorite_button_widget.dart';
 import 'package:word_wise/app/features/favorites_page/favorites_cubit.dart';
 import 'package:word_wise/app/features/favorites_page/favorites_state.dart';
-import 'package:word_wise/app/features/words_page/words_page.dart';
-import 'package:word_wise/components/favorite_button_widget.dart';
 import 'package:word_wise/core/inject.dart';
-
-export 'package:flutter_bloc/flutter_bloc.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});

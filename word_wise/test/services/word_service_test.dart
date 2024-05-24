@@ -1,5 +1,5 @@
-import 'package:word_wise/core/wrappers/supabase_wrapper.dart';
 import 'package:word_wise/services/word_service.dart';
+import 'package:word_wise/wrappers/supabase_wrapper.dart';
 
 import '../mocks/mocks.dart';
 

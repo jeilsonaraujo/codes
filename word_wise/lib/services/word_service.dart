@@ -1,4 +1,4 @@
-import 'package:word_wise/core/wrappers/supabase_wrapper.dart';
+import 'package:word_wise/wrappers/supabase_wrapper.dart';
 
 class WordService {
   final SupabaseWrapper supabaseWrapper;
