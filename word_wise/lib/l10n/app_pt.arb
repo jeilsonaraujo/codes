@@ -5,6 +5,8 @@
   "wordDefinitionPageNextPhonetic": "Anterior",
   "wordDefinitionPagePreviousPhonetic": "Próxima",
   "wordDefinitionPageMeanings": "Significados",
-    "wordDefinitionPageTitle": "Definição da Palavra"
-
+  "wordDefinitionPageTitle": "Definição da Palavra",
+  "favoritesPageTitle": "Favoritos",
+  "historyPageTitle": "Histórico",
+  "wordsPageTitle": "Palavras"
 }

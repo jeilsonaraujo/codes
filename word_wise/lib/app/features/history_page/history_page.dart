@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:word_wise/app/components/history_button_widget.dart';
 import 'package:word_wise/app/features/history_page/history_cubit.dart';
 import 'package:word_wise/app/features/history_page/history_page.dart';
 import 'package:word_wise/app/features/history_page/history_state.dart';
 import 'package:word_wise/app/features/word_definition_page/word_definition_page.dart';
-import 'package:word_wise/core/inject.dart';
+import 'package:word_wise/app/theme/app_colors.dart';
+import 'package:word_wise/core/core.dart';
 
 export 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -29,6 +29,16 @@ class _HistoryPageState extends State<HistoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: Container(),
+        backgroundColor: AppColors.white100,
+        shadowColor: Colors.transparent,
+        title: Text(AppLocalizations.of(context)!.historyPageTitle, style: AppTextTheme.headlineSmall.copyWith(color: AppColors.primary900)),
+        surfaceTintColor: AppColors.primary900,
+        actionsIconTheme: const IconThemeData(color: AppColors.primary900),
+        leadingWidth: 30,
+        iconTheme: const IconThemeData(color: AppColors.primary900),
+      ),
       body: BlocBuilder<HistoryCubit, HistoryState>(
         bloc: wordsCubit,
         builder: (context, state) {

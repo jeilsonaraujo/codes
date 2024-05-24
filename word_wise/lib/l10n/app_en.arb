@@ -5,5 +5,8 @@
   "wordDefinitionPageMeanings": "Meanings",
   "wordDefinitionPageNextPhonetic": "Next",
   "wordDefinitionPagePreviousPhonetic": "Previous",
-  "wordDefinitionPageTitle": "Word Definition"
+  "wordDefinitionPageTitle": "Word Definition",
+  "favoritesPageTitle": "Favorites",
+  "historyPageTitle": "History",
+  "wordsPageTitle": "Words"
 }

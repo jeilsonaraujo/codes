@@ -7,8 +7,6 @@ part 'word_definition_state.freezed.dart';
 class WordDefinitionState with _$WordDefinitionState {
   const factory WordDefinitionState.loading() = _Loading;
 
-  const factory WordDefinitionState.favorite() = _Favorite;
-
   const factory WordDefinitionState.error() = _Error;
 
   const factory WordDefinitionState.content({required WordDetailDto wordDetail, required bool isFavorite}) = _Content;

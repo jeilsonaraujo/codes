@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:word_wise/app/components/word_button_widget.dart';
 import 'package:word_wise/app/features/word_definition_page/word_definition_page.dart';
 import 'package:word_wise/app/features/words_page/words_cubit.dart';
 import 'package:word_wise/app/features/words_page/words_state.dart';
-import 'package:word_wise/core/inject.dart';
+import 'package:word_wise/app/theme/app_colors.dart';
+import 'package:word_wise/core/core.dart';
 
 class WordsPage extends StatefulWidget {
   const WordsPage({super.key});
@@ -43,6 +43,16 @@ class _WordsPageState extends State<WordsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: Container(),
+        backgroundColor: AppColors.white100,
+        shadowColor: Colors.transparent,
+        title: Text(AppLocalizations.of(context)!.wordDefinitionPageTitle, style: AppTextTheme.headlineSmall.copyWith(color: AppColors.primary900)),
+        surfaceTintColor: AppColors.primary900,
+        actionsIconTheme: const IconThemeData(color: AppColors.primary900),
+        leadingWidth: 30,
+        iconTheme: const IconThemeData(color: AppColors.primary900),
+      ),
       body: BlocBuilder<WordsCubit, WordsState>(
         bloc: wordsCubit,
         builder: (context, state) {
@@ -71,7 +81,7 @@ class _WordsPageState extends State<WordsPage> {
                                   onTap: () => WordDefinitionPage.go(context, root: WordsPage.path, word: words[index]),
                                 ),
                               )),
-                      ...[if (state.isPaginating) const Center(child: CircularProgressIndicator())],
+                      ...[if (state.isPaginating) const Center(child: CircularProgressIndicator(color: AppColors.primary900))],
                     ]),
               );
             },

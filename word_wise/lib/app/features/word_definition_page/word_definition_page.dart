@@ -37,11 +37,19 @@ class _WordDefinitionPageState extends State<WordDefinitionPage> {
     return BlocBuilder<WordDefinitionCubit, WordDefinitionState>(
         bloc: wordDefinitionCubit,
         builder: (context, state) {
-          return state.maybeWhen(
-              orElse: () => Container(),
-              error: () => const Center(child: Text('Error')),
-              loading: () => const Center(child: Text('Loading')),
-              content: (wordDetail, isFavorite) => Scaffold(
+          return state.when(
+              error: () => Scaffold(
+                  appBar: AppBar(
+                    backgroundColor: AppColors.white100,
+                    shadowColor: Colors.transparent,
+                    title: Text(AppLocalizations.of(context)!.wordDefinitionPageTitle, style: AppTextTheme.headlineSmall.copyWith(color: AppColors.primary900)),
+                    surfaceTintColor: AppColors.primary900,
+                    actionsIconTheme: const IconThemeData(color: AppColors.primary900),
+                    leadingWidth: 30,
+                    iconTheme: const IconThemeData(color: AppColors.primary900),
+                  ),
+                  body: const Center(child: Text('Error'))),
+              loading: () => Scaffold(
                     appBar: AppBar(
                       backgroundColor: AppColors.white100,
                       shadowColor: Colors.transparent,
@@ -50,100 +58,115 @@ class _WordDefinitionPageState extends State<WordDefinitionPage> {
                       actionsIconTheme: const IconThemeData(color: AppColors.primary900),
                       leadingWidth: 30,
                       iconTheme: const IconThemeData(color: AppColors.primary900),
-                      actions: [
-                        IconButton(
-                            onPressed: () => wordDefinitionCubit.toggleFavorite(word: widget.word, userId: 'b57e89bf-279b-4edb-904d-b6da662a37a2'),
-                            icon: Icon(isFavorite ? Icons.star : Icons.star_border_outlined))
-                      ],
                     ),
-                    body: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 24.0),
-                          child: Center(
-                            child: Material(
-                              borderRadius: const BorderRadius.all(Radius.circular(8)),
-                              elevation: 4,
-                              child: Container(
-                                  width: MediaQuery.of(context).size.width * 0.8,
-                                  decoration: const BoxDecoration(
-                                    color: AppColors.primary100,
-                                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 16.0),
-                                    child: Column(
-                                      children: [
+                    body: const Center(child: Text('Loading')),
+                  ),
+              content: (wordDetail, isFavorite) {
+                return Scaffold(
+                  appBar: AppBar(
+                    backgroundColor: AppColors.white100,
+                    shadowColor: Colors.transparent,
+                    title: Text(AppLocalizations.of(context)!.wordDefinitionPageTitle, style: AppTextTheme.headlineSmall.copyWith(color: AppColors.primary900)),
+                    surfaceTintColor: AppColors.primary900,
+                    actionsIconTheme: const IconThemeData(color: AppColors.primary900),
+                    leadingWidth: 30,
+                    iconTheme: const IconThemeData(color: AppColors.primary900),
+                    actions: [
+                      IconButton(
+                          splashRadius: 20,
+                          onPressed: () => wordDefinitionCubit.toggleFavorite(word: widget.word, userId: 'b57e89bf-279b-4edb-904d-b6da662a37a2'),
+                          icon: Icon(isFavorite ? Icons.star : Icons.star_border_outlined))
+                    ],
+                  ),
+                  body: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 24.0),
+                        child: Center(
+                          child: Material(
+                            borderRadius: const BorderRadius.all(Radius.circular(8)),
+                            elevation: 4,
+                            child: Container(
+                                width: MediaQuery.of(context).size.width * 0.8,
+                                decoration: const BoxDecoration(
+                                  color: AppColors.primary100,
+                                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 16.0),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          wordDetail.word,
+                                          style: AppTextTheme.headlineMedium,
+                                        ),
+                                      ),
+                                      if (wordDetail.phonetics.isNotEmpty)
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Text(
-                                            wordDetail.word,
-                                            style: AppTextTheme.headlineMedium,
+                                            wordDetail.phonetics[currentPhonetics].text,
+                                            style: AppTextTheme.headlineSmall,
                                           ),
                                         ),
-                                        if (wordDetail.phonetics.isNotEmpty)
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              wordDetail.phonetics[currentPhonetics].text,
-                                              style: AppTextTheme.headlineSmall,
-                                            ),
-                                          ),
-                                      ],
-                                    ),
-                                  )),
-                            ),
+                                    ],
+                                  ),
+                                )),
                           ),
                         ),
-                        if (wordDetail.meanings.isNotEmpty)
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 18),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    AppLocalizations.of(context)!.wordDefinitionPageMeanings,
-                                    style: AppTextTheme.headlineMedium,
-                                  ),
-                                  Expanded(child: WordDetailMeaningsWidget(meanings: wordDetail.meanings)),
-                                ],
-                              ),
-                            ),
-                          ),
-                        if (wordDetail.phonetics.isNotEmpty)
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16.0).copyWith(bottom: 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      ),
+                      if (wordDetail.meanings.isNotEmpty)
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 18),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                WWButton(
-                                    onTap: currentPhonetics != 0 ? () => setState(() => currentPhonetics--) : null,
-                                    child: Row(children: [
-                                      const Icon(Icons.arrow_back, color: AppColors.white900),
-                                      const SizedBox(width: 8),
-                                      Text(
-                                        AppLocalizations.of(context)!.wordDefinitionPagePreviousPhonetic,
-                                        style: AppTextTheme.titleSmall.copyWith(color: AppColors.white900),
-                                      )
-                                    ])),
-                                WWButton(
-                                    onTap: currentPhonetics + 1 < wordDetail.phonetics.length ? () => setState(() => currentPhonetics++) : null,
-                                    child: Row(children: [
-                                      Text(
-                                        AppLocalizations.of(context)!.wordDefinitionPageNextPhonetic,
-                                        style: AppTextTheme.titleSmall.copyWith(color: AppColors.white900),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      const Icon(Icons.arrow_forward, color: AppColors.white900)
-                                    ])),
+                                Text(
+                                  AppLocalizations.of(context)!.wordDefinitionPageMeanings,
+                                  style: AppTextTheme.headlineMedium,
+                                ),
+                                Expanded(child: WordDetailMeaningsWidget(meanings: wordDetail.meanings)),
                               ],
                             ),
                           ),
-                      ],
-                    ),
-                  ));
+                        ),
+                      if (wordDetail.phonetics.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0).copyWith(bottom: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              WWButton(
+                                  onTap: currentPhonetics != 0 ? () => setState(() => currentPhonetics--) : null,
+                                  child: Row(children: [
+                                    const Icon(Icons.arrow_back, color: AppColors.white900),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      AppLocalizations.of(context)!.wordDefinitionPagePreviousPhonetic,
+                                      style: AppTextTheme.titleSmall.copyWith(color: AppColors.white900),
+                                    )
+                                  ])),
+                              WWButton(
+                                  onTap: currentPhonetics + 1 < wordDetail.phonetics.length ? () => setState(() => currentPhonetics++) : null,
+                                  child: Row(children: [
+                                    Text(
+                                      AppLocalizations.of(context)!.wordDefinitionPageNextPhonetic,
+                                      style: AppTextTheme.titleSmall.copyWith(color: AppColors.white900),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    const Icon(Icons.arrow_forward, color: AppColors.white900)
+                                  ])),
+                            ],
+                          ),
+                        ),
+                    ],
+                  ),
+                );
+              });
         });
   }
 }
