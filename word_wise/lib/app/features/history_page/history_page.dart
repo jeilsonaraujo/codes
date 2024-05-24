@@ -3,6 +3,7 @@ import 'package:word_wise/app/components/history_button_widget.dart';
 import 'package:word_wise/app/features/history_page/history_cubit.dart';
 import 'package:word_wise/app/features/history_page/history_page.dart';
 import 'package:word_wise/app/features/history_page/history_state.dart';
+import 'package:word_wise/app/features/word_definition_page/word_definition_page.dart';
 import 'package:word_wise/core/inject.dart';
 
 export 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,6 +45,7 @@ class _HistoryPageState extends State<HistoryPage> {
                     itemCount: words.length,
                     itemBuilder: (context, index) => HistoryWidgetButton(
                       wordHistory: words[index],
+                      onTap: () => WordDefinitionPage.go(context, root: HistoryPage.path, word: words[index].wordName),
                     ),
                   ));
             },

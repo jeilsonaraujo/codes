@@ -21,28 +21,31 @@ class HistoryWidgetButton extends StatelessWidget {
       child: Material(
         borderRadius: const BorderRadius.all(Radius.circular(8)),
         elevation: 3,
-        child: Container(
-          height: 60,
-          decoration: const BoxDecoration(
-            color: Color(0xFFA2D2FE),
-            borderRadius: BorderRadius.all(Radius.circular(8)),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Row(
-              children: [
-                const Icon(Icons.history_toggle_off_sharp, size: 40),
-                const SizedBox(width: 14),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(wordHistory.wordName.toUpperCase(), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
-                    const SizedBox(height: 4),
-                    Text('$day/$month/$year - $hour:$minute:$second', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
-                  ],
-                ),
-              ],
+        child: InkWell(
+          onTap: onTap,
+          child: Container(
+            height: 60,
+            decoration: const BoxDecoration(
+              color: Color(0xFFA2D2FE),
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                children: [
+                  const Icon(Icons.history_toggle_off_sharp, size: 40),
+                  const SizedBox(width: 14),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(wordHistory.wordName.toUpperCase(), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                      const SizedBox(height: 4),
+                      Text('$day/$month/$year - $hour:$minute:$second', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

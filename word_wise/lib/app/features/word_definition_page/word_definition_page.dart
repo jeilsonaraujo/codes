@@ -12,7 +12,7 @@ class WordDefinitionPage extends StatefulWidget {
 
   static String get path => 'word_definition';
 
-  static push(BuildContext context, {required String word}) => context.go('/words/$path/$word');
+  static go(BuildContext context, {required String root, required String word}) => context.go('/$root/$path/$word');
 
   @override
   State<WordDefinitionPage> createState() => _WordDefinitionPageState();

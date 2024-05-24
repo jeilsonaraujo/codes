@@ -68,10 +68,7 @@ class _WordsPageState extends State<WordsPage> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: WordButtonWidget(
                                   label: words[index].toUpperCase(),
-                                  onTap: () => WordDefinitionPage.push(
-                                    context,
-                                    word: words[index],
-                                  ),
+                                  onTap: () => WordDefinitionPage.go(context, root: WordsPage.path, word: words[index]),
                                 ),
                               )),
                       ...[if (state.isPaginating) const Center(child: CircularProgressIndicator())],

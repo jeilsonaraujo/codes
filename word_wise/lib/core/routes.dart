@@ -50,21 +50,45 @@ class AppRouter {
                       ),
                     ]),
                 GoRoute(
-                  path: 'favorites',
-                  pageBuilder: (context, state) => _buildPageWithDefaultTransition<void>(
-                    state: state,
-                    context: context,
-                    child: const FavoritesPage(),
-                  ),
-                ),
+                    path: 'favorites',
+                    pageBuilder: (context, state) => _buildPageWithDefaultTransition<void>(
+                          state: state,
+                          context: context,
+                          child: const FavoritesPage(),
+                        ),
+                    routes: [
+                      GoRoute(
+                        path: '${WordDefinitionPage.path}/:word',
+                        pageBuilder: (context, state) {
+                          final word = state.pathParameters['word']!;
+                          return _buildPageWithDefaultTransition<void>(
+                            context: context,
+                            state: state,
+                            child: WordDefinitionPage(word: word),
+                          );
+                        },
+                      ),
+                    ]),
                 GoRoute(
-                  path: 'history',
-                  pageBuilder: (context, state) => _buildPageWithDefaultTransition<void>(
-                    context: context,
-                    state: state,
-                    child: const HistoryPage(),
-                  ),
-                ),
+                    path: 'history',
+                    pageBuilder: (context, state) => _buildPageWithDefaultTransition<void>(
+                          context: context,
+                          state: state,
+                          child: const HistoryPage(),
+                        ),
+                    routes: [
+                      GoRoute(
+                        path: '${WordDefinitionPage.path}/:word',
+                        pageBuilder: (context, state) {
+                          final word = state.pathParameters['word']!;
+                          return _buildPageWithDefaultTransition<void>(
+                            context: context,
+                            state: state,
+                            child: WordDefinitionPage(word: word),
+                          );
+                        },
+                      ),
+                    ]),
               ],
             )
           ]),

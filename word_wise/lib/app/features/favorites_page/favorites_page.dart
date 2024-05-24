@@ -3,11 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:word_wise/app/components/favorite_button_widget.dart';
 import 'package:word_wise/app/features/favorites_page/favorites_cubit.dart';
 import 'package:word_wise/app/features/favorites_page/favorites_state.dart';
+import 'package:word_wise/app/features/word_definition_page/word_definition_page.dart';
 import 'package:word_wise/core/inject.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
-  static String get path => 'words';
+  static String get path => 'favorites';
 
   @override
   State<FavoritesPage> createState() => _FavoritesPageState();
@@ -57,7 +58,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 4),
                   child: ListView.builder(
                     itemCount: words.length,
-                    itemBuilder: (context, index) => FavoriteButtonWidget(label: words[index]),
+                    itemBuilder: (context, index) => FavoriteButtonWidget(
+                      label: words[index],
+                      onTap: () => WordDefinitionPage.go(context, root: FavoritesPage.path, word: words[index]),
+                    ),
                   ));
             },
           ));
