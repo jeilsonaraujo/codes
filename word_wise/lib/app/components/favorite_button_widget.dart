@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:word_wise/app/theme/app_colors.dart';
+import 'package:word_wise/app/theme/app_text_theme.dart';
 
 class FavoriteButtonWidget extends StatelessWidget {
   const FavoriteButtonWidget({super.key, required this.label, this.onTap});
@@ -17,19 +19,26 @@ class FavoriteButtonWidget extends StatelessWidget {
           child: Container(
             height: 50,
             decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 255, 231, 160),
+              color: AppColors.primary400,
               borderRadius: BorderRadius.all(Radius.circular(8)),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const SizedBox(width: 10),
-                const Icon(Icons.star_border_purple500_outlined),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12.0),
+                  child: Icon(
+                    Icons.star_border_purple500_outlined,
+                    color: AppColors.white900,
+                  ),
+                ),
                 Expanded(
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Center(child: Text(label.toUpperCase(), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600))),
+                      Text(
+                        label.toUpperCase(),
+                        style: AppTextTheme.bodyLarge.copyWith(color: AppColors.white900),
+                      ),
                     ],
                   ),
                 ),

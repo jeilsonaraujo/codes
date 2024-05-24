@@ -14,7 +14,7 @@ class _WWNavBarState extends State<WWNavBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: Colors.white, boxShadow: [
+      decoration: BoxDecoration(color: AppColors.white900, boxShadow: [
         BoxShadow(
           color: AppColors.white100.withOpacity(0.5),
           spreadRadius: 2,
@@ -59,11 +59,11 @@ class _WWNavItemState extends State<WWNavItem> {
           Align(
             alignment: Alignment.center,
             child: AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
+              duration: const Duration(milliseconds: 150),
               height: widget.selected ? 70 : 0,
               width: widget.selected ? 70 : 0,
               decoration: BoxDecoration(
-                color: widget.selected ? AppColors.primary400 : AppColors.primary400.withOpacity(0),
+                color: widget.selected ? AppColors.primary600 : AppColors.primary600.withOpacity(0),
                 boxShadow: widget.selected
                     ? [
                         const BoxShadow(

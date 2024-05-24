@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:word_wise/app/theme/app_colors.dart';
+import 'package:word_wise/core/core.dart';
 import 'package:word_wise/dto/word_history_dto.dart';
 
 class HistoryWidgetButton extends StatelessWidget {
@@ -26,22 +27,25 @@ class HistoryWidgetButton extends StatelessWidget {
           child: Container(
             height: 60,
             decoration: const BoxDecoration(
-              color: Color(0xFFA2D2FE),
+              color: AppColors.white700,
               borderRadius: BorderRadius.all(Radius.circular(8)),
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Row(
                 children: [
-                  const Icon(Icons.history_toggle_off_sharp, size: 40),
+                  const Icon(
+                    Icons.history_toggle_off_sharp,
+                    size: 40,
+                    color: AppColors.primary900,
+                  ),
                   const SizedBox(width: 14),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(wordHistory.wordName.toUpperCase(), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
-                      const SizedBox(height: 4),
-                      Text('$day/$month/$year - $hour:$minute:$second', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                      Text(wordHistory.wordName.toUpperCase(), style: AppTextTheme.titleSmall.copyWith(color: AppColors.primary900)),
+                      Text('$day/$month/$year - $hour:$minute:$second', style: AppTextTheme.bodySmall.copyWith(color: AppColors.primary900)),
                     ],
                   ),
                 ],

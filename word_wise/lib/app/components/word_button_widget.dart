@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:word_wise/app/theme/app_colors.dart';
 
 class WordButtonWidget extends StatelessWidget {
   const WordButtonWidget({super.key, required this.label, this.onTap});
@@ -7,22 +8,18 @@ class WordButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 4,
-      borderRadius: BorderRadius.circular(8),
-      child: InkWell(
-        onTap: onTap,
-        child: Container(
-          decoration: BoxDecoration(color: const Color(0xFF67549E), borderRadius: BorderRadius.circular(8)),
-          child: Center(
-            child: Text(
-              label,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 12,
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-              ),
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(color: AppColors.primary500, borderRadius: BorderRadius.circular(8)),
+        child: Center(
+          child: Text(
+            label,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 12,
+              color: AppColors.white900,
+              fontWeight: FontWeight.w700,
             ),
           ),
         ),
