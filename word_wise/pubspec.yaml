@@ -29,6 +29,7 @@ dependencies:
 
   flutter_localizations:
     sdk: flutter
+  just_audio: ^0.9.37
 
 dev_dependencies:
   flutter_test:

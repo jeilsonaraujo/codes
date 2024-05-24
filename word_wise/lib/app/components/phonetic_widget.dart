@@ -1,11 +1,18 @@
+import 'package:word_wise/app/components/player_windgets.dart';
 import 'package:word_wise/app/theme/app_colors.dart';
 import 'package:word_wise/core/core.dart';
 import 'package:word_wise/dto/word_detail_dto.dart';
 
-class PhoneticWidget extends StatelessWidget {
+class PhoneticWidget extends StatefulWidget {
   const PhoneticWidget({super.key, required this.wordDetail, required this.currentPhonetic});
   final WordDetailDto wordDetail;
   final int currentPhonetic;
+
+  @override
+  State<PhoneticWidget> createState() => _PhoneticWidgetState();
+}
+
+class _PhoneticWidgetState extends State<PhoneticWidget> {
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -24,15 +31,17 @@ class PhoneticWidget extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(wordDetail.word, style: AppTextTheme.headlineMedium),
+                    child: Text(widget.wordDetail.word, style: AppTextTheme.headlineMedium),
                   ),
-                  if (wordDetail.phonetics.isNotEmpty)
+                  if (widget.wordDetail.phonetics.isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          Text(wordDetail.phonetics[currentPhonetic].text, style: AppTextTheme.headlineSmall),
-                          Text(wordDetail.phonetics[currentPhonetic].audio, style: AppTextTheme.headlineSmall),
+                          Text(widget.wordDetail.phonetics[widget.currentPhonetic].text, style: AppTextTheme.headlineSmall),
+                          if (widget.wordDetail.phonetics[widget.currentPhonetic].audio.isNotEmpty)
+                            PlayerWidget(
+                                key: Key(widget.wordDetail.phonetics[widget.currentPhonetic].audio), location: widget.wordDetail.phonetics[widget.currentPhonetic].audio)
                         ],
                       ),
                     ),
