@@ -3,12 +3,24 @@ packages:
   - .
 
 scripts:
+  open-ide: "code ."
+
+  install-arb-utils: "dart pub global activate arb_utils"
+
+  install-flutter-gen: "dart pub global activate flutter_gen"
+
+  setup-dependencies: "melos install-arb-utils && melos install-flutter-gen"
+
+  setup-project: "fvm flutter clean && melos get && melos get && melos l10n && melos gen && melos unit"
+
+  setup-all: "melos setup-dependencies && melos setup-project && melos open-ide"
+
   get: fvm flutter pub get
 
   fix-gen: "mkdir -p .dart_tool/flutter_gen/ && echo 'name: stub'> .dart_tool/flutter_gen/pubspec.yaml"
 
-  l10n: "flutter gen-l10n && arb_utils sort lib/l10n/app_en.arb"
+  l10n: "fvm flutter gen-l10n && arb_utils sort lib/l10n/app_en.arb"
 
-  gen: "dart run build_runner build --delete-conflicting-outputs || make try-fix-gen"
+  gen: "dart run build_runner build --delete-conflicting-outputs || melos fix-gen && dart run build_runner build --delete-conflicting-outputs"
 
-  unit: "flutter test -x golden --coverage"
+  unit: "fvm flutter test -x golden --coverage"
