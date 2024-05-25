@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:word_wise/app/theme/app_colors.dart';
 
-class WWButton extends StatelessWidget {
-  const WWButton({super.key, required this.child, required this.onTap});
+class PhoneticNavigationButtonWidget extends StatelessWidget {
+  const PhoneticNavigationButtonWidget({super.key, required this.child, required this.onTap});
   final Widget child;
   final void Function()? onTap;
 

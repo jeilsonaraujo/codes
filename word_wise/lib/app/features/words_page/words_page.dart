@@ -49,7 +49,7 @@ class _WordsPageState extends State<WordsPage> {
       appBar: AppBar(
         leading: Container(),
         backgroundColor: AppColors.white100,
-        shadowColor: Colors.transparent,
+        elevation: 0,
         title: Text(AppLocalizations.of(context)!.wordsPageTitle, style: AppTextTheme.headlineSmall.copyWith(color: AppColors.primary900)),
         surfaceTintColor: AppColors.primary900,
         actionsIconTheme: const IconThemeData(color: AppColors.primary900),

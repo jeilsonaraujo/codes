@@ -1,18 +1,18 @@
 import 'package:word_wise/app/theme/app_colors.dart';
 import 'package:word_wise/core/core.dart';
 
-class InputForm extends StatefulWidget {
-  const InputForm({super.key, required this.hintText, this.padding = const EdgeInsets.symmetric(vertical: 10), this.obscureText = false, this.controller});
+class InputFormWidget extends StatefulWidget {
+  const InputFormWidget({super.key, required this.hintText, this.padding = const EdgeInsets.symmetric(vertical: 10), this.obscureText = false, this.controller});
   final String hintText;
   final EdgeInsets padding;
   final bool obscureText;
   final TextEditingController? controller;
 
   @override
-  State<InputForm> createState() => InputFormState();
+  State<InputFormWidget> createState() => InputFormWidgetState();
 }
 
-class InputFormState extends State<InputForm> {
+class InputFormWidgetState extends State<InputFormWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(

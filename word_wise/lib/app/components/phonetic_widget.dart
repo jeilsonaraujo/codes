@@ -1,4 +1,4 @@
-import 'package:word_wise/app/components/player_windgets.dart';
+import 'package:word_wise/app/components/player_widget.dart';
 import 'package:word_wise/app/theme/app_colors.dart';
 import 'package:word_wise/core/core.dart';
 import 'package:word_wise/dto/word_detail_dto.dart';

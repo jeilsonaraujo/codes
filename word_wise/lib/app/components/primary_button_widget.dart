@@ -1,16 +1,16 @@
 import 'package:word_wise/app/theme/app_colors.dart';
 import 'package:word_wise/core/core.dart';
 
-class ButtonPrimary extends StatefulWidget {
-  const ButtonPrimary({super.key, this.onTap, required this.text, this.padding = const EdgeInsets.all(4.0)});
+class PrimaryButtonWidget extends StatefulWidget {
+  const PrimaryButtonWidget({super.key, this.onTap, required this.text, this.padding = const EdgeInsets.all(4.0)});
   final Function()? onTap;
   final String text;
   final EdgeInsets padding;
   @override
-  State<ButtonPrimary> createState() => _ButtonPrimaryState();
+  State<PrimaryButtonWidget> createState() => _PrimaryButtonWidgetState();
 }
 
-class _ButtonPrimaryState extends State<ButtonPrimary> {
+class _PrimaryButtonWidgetState extends State<PrimaryButtonWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(

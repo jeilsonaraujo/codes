@@ -2,9 +2,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:word_wise/app/components/loading_widget.dart';
 import 'package:word_wise/app/components/not_found_widget.dart';
+import 'package:word_wise/app/components/phonetic_navigation_button_widget.dart';
 import 'package:word_wise/app/components/phonetic_widget.dart';
 import 'package:word_wise/app/components/word_detail_meaning_widget.dart';
-import 'package:word_wise/app/components/ww_button.dart';
 import 'package:word_wise/app/features/history_page/history_page.dart';
 import 'package:word_wise/app/features/word_definition_page/word_definition_cubit.dart';
 import 'package:word_wise/app/features/word_definition_page/word_definition_state.dart';
@@ -42,43 +42,55 @@ class _WordDefinitionPageState extends State<WordDefinitionPage> {
         builder: (context, state) {
           return state.when(
               error: () => Scaffold(
-                  appBar: AppBar(
-                    backgroundColor: AppColors.white100,
-                    shadowColor: Colors.transparent,
-                    title: Text(AppLocalizations.of(context)!.wordDefinitionPageTitle, style: AppTextTheme.headlineSmall.copyWith(color: AppColors.primary900)),
-                    surfaceTintColor: AppColors.primary900,
-                    actionsIconTheme: const IconThemeData(color: AppColors.primary900),
-                    leadingWidth: 30,
-                    iconTheme: const IconThemeData(color: AppColors.primary900),
+                    appBar: AppBar(
+                      elevation: 0,
+                      leadingWidth: 30,
+                      backgroundColor: AppColors.white100,
+                      surfaceTintColor: AppColors.primary900,
+                      actionsIconTheme: const IconThemeData(color: AppColors.primary900),
+                      iconTheme: const IconThemeData(color: AppColors.primary900),
+                      title: Text(
+                        AppLocalizations.of(context)!.wordDefinitionPageTitle,
+                        style: AppTextTheme.headlineSmall.copyWith(color: AppColors.primary900),
+                      ),
+                    ),
+                    body: Center(child: NotFoundWidget(message: AppLocalizations.of(context)!.wordDefinitionNotFoundMessage)),
                   ),
-                  body: Center(child: NotFoundWidget(message: AppLocalizations.of(context)!.wordDefinitionNotFoundMessage))),
               loading: () => Scaffold(
-                  appBar: AppBar(
-                    backgroundColor: AppColors.white100,
-                    shadowColor: Colors.transparent,
-                    title: Text(AppLocalizations.of(context)!.wordDefinitionPageTitle, style: AppTextTheme.headlineSmall.copyWith(color: AppColors.primary900)),
-                    surfaceTintColor: AppColors.primary900,
-                    actionsIconTheme: const IconThemeData(color: AppColors.primary900),
-                    leadingWidth: 30,
-                    iconTheme: const IconThemeData(color: AppColors.primary900),
+                    appBar: AppBar(
+                      elevation: 0,
+                      leadingWidth: 30,
+                      backgroundColor: AppColors.white100,
+                      surfaceTintColor: AppColors.primary900,
+                      actionsIconTheme: const IconThemeData(color: AppColors.primary900),
+                      iconTheme: const IconThemeData(color: AppColors.primary900),
+                      title: Text(
+                        AppLocalizations.of(context)!.wordDefinitionPageTitle,
+                        style: AppTextTheme.headlineSmall.copyWith(color: AppColors.primary900),
+                      ),
+                    ),
+                    body: LoadingWidget(message: AppLocalizations.of(context)!.wordDefinitionPageLoadingMessage),
                   ),
-                  body: LoadingWidget(message: AppLocalizations.of(context)!.wordDefinitionPageLoadingMessage)),
               content: (wordDetail, isFavorite) {
                 return Scaffold(
                   appBar: AppBar(
+                    elevation: 0,
+                    leadingWidth: 30,
                     backgroundColor: AppColors.white100,
-                    shadowColor: Colors.transparent,
-                    title: Text(AppLocalizations.of(context)!.wordDefinitionPageTitle, style: AppTextTheme.headlineSmall.copyWith(color: AppColors.primary900)),
                     surfaceTintColor: AppColors.primary900,
                     actionsIconTheme: const IconThemeData(color: AppColors.primary900),
-                    leadingWidth: 30,
                     iconTheme: const IconThemeData(color: AppColors.primary900),
                     actions: [
                       IconButton(
-                          splashRadius: 20,
-                          onPressed: () => wordDefinitionCubit.toggleFavorite(word: widget.word),
-                          icon: Icon(isFavorite ? Icons.star : Icons.star_border_outlined))
+                        splashRadius: 20,
+                        onPressed: () => wordDefinitionCubit.toggleFavorite(word: widget.word),
+                        icon: Icon(isFavorite ? Icons.star : Icons.star_border_outlined),
+                      )
                     ],
+                    title: Text(
+                      AppLocalizations.of(context)!.wordDefinitionPageTitle,
+                      style: AppTextTheme.headlineSmall.copyWith(color: AppColors.primary900),
+                    ),
                   ),
                   body: Padding(
                     padding: const EdgeInsets.only(top: 24.0),
@@ -105,17 +117,20 @@ class _WordDefinitionPageState extends State<WordDefinitionPage> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                WWButton(
-                                    onTap: currentPhonetic != 0 ? () => setState(() => currentPhonetic--) : null,
-                                    child: Row(children: [
+                                PhoneticNavigationButtonWidget(
+                                  onTap: currentPhonetic != 0 ? () => setState(() => currentPhonetic--) : null,
+                                  child: Row(
+                                    children: [
                                       const Icon(Icons.arrow_back, color: AppColors.white900),
                                       const SizedBox(width: 8),
                                       Text(
                                         AppLocalizations.of(context)!.wordDefinitionPagePreviousPhonetic,
                                         style: AppTextTheme.titleSmall.copyWith(color: AppColors.white900),
                                       )
-                                    ])),
-                                WWButton(
+                                    ],
+                                  ),
+                                ),
+                                PhoneticNavigationButtonWidget(
                                     onTap: currentPhonetic + 1 < wordDetail.phonetics.length ? () => setState(() => currentPhonetic++) : null,
                                     child: Row(children: [
                                       Text(

@@ -1,15 +1,15 @@
 import 'package:word_wise/core/core.dart';
 
-class ButtonLink extends StatefulWidget {
-  const ButtonLink({super.key, required this.onTap, required this.text, this.padding = const EdgeInsets.all(4.0)});
+class LinkButtonWidget extends StatefulWidget {
+  const LinkButtonWidget({super.key, required this.onTap, required this.text, this.padding = const EdgeInsets.all(4.0)});
   final Function() onTap;
   final Text text;
   final EdgeInsets padding;
   @override
-  State<ButtonLink> createState() => _ButtonLinkState();
+  State<LinkButtonWidget> createState() => _LinkButtonWidgetState();
 }
 
-class _ButtonLinkState extends State<ButtonLink> {
+class _LinkButtonWidgetState extends State<LinkButtonWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(

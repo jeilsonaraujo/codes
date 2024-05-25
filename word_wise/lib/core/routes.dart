@@ -26,7 +26,7 @@ class AppRouter {
                     userLogged: authService.applicationUser.isNotNull,
                     onSignOut: () async {
                       await authService.signOut();
-                      if (context.mounted) context.go('/${WordsPage.path}');
+                      if (context.mounted) context.go('/${WordsPage.path}', extra: true);
                     },
                     child: child,
                   )),
@@ -42,11 +42,14 @@ class AppRouter {
                   routes: [
                     GoRoute(
                         path: WordsPage.path,
-                        pageBuilder: (context, state) => _buildPageWithDefaultTransition<void>(
-                              state: state,
-                              context: context,
-                              child: const WordsPage(),
-                            ),
+                        pageBuilder: (context, state) {
+                          final shouldRefresh = state.extra != null;
+                          return _buildPageWithDefaultTransition<void>(
+                            state: state,
+                            context: context,
+                            child: WordsPage(key: shouldRefresh ? Key(DateTime.now().toString()) : null),
+                          );
+                        },
                         routes: [
                           GoRoute(
                             path: '${WordDefinitionPage.path}/:word',
