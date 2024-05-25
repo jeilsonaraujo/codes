@@ -329,4 +329,6 @@ SUPABASE_URL="supabaseUrl"
 SUPABASE_ANON_KEY="supabaseKey"
 ```
 
-A estrutura do banco de dados:
+### Estrutura do banco de dados:
+
+![image](https://github.com/jeilsonaraujo/coodesh/blob/main/word_wise/database-schema.png?raw=true)
