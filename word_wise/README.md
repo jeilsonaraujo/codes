@@ -321,3 +321,12 @@ Dentro da pasta do projeto podemos rodar o comando `melos setup-all` que ele vai
 > O comando `melos setup-all` roda outros scripts agregados, então a sugestão em caso de erro é tentar rodar primeiro `melos setup-dependencies` e ver se não gera nenhum erro, em seguida rode `melos setup-project`.
 
 Se tudo occoreu bem o projeto esta pronto para rodar no simulador e codar.
+
+Para o projeto ter acesso a api do Supabase deve ser criado um arquivo `.env` na raiz do projeto com as keys:
+
+```env
+SUPABASE_URL="supabaseUrl"
+SUPABASE_ANON_KEY="supabaseKey"
+```
+
+A estrutura do banco de dados:
